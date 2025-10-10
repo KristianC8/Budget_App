@@ -1,13 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
 import type { form, errorsForm } from '../types/addExpenseForm'
-import { useExpenses } from './useExpenses'
+// import { useExpenses } from './useExpenses'
 
 export const useForm = (
   intialForm: form,
   validateForm: (form: form) => errorsForm
 ) => {
-  const { addExpense } = useExpenses()
+  // const { addExpense } = useExpenses()
 
   const [formState, setFormState] = useState<form>(intialForm)
   const [errors, setErrors] = useState<errorsForm>({})
@@ -39,17 +39,17 @@ export const useForm = (
     setHasValidated(true)
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setFormState(intialForm)
-    const newExpense = {
-      // id: crypto.randomUUID(),
-      id: Math.random(),
-      ...formState
-    }
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault()
+  //   setFormState(intialForm)
+  //   const newExpense = {
+  //     // id: crypto.randomUUID(),
+  //     id: Math.random(),
+  //     ...formState
+  //   }
 
-    addExpense(newExpense)
-  }
+  //    addExpense(newExpense)
+  // }
 
   return {
     formState,
@@ -58,7 +58,7 @@ export const useForm = (
     onInputChange,
     onSelectChange,
     handleBlur,
-    handleKeyUp,
-    handleSubmit
+    handleKeyUp
+    // handleSubmit
   }
 }

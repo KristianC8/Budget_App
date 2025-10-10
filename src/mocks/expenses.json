@@ -1,0 +1,129 @@
+{
+    "results": [
+        {
+            "id": 1,
+            "amount": 115000,
+            "category": "mercado"
+        },
+        {
+            "id": 2,
+            "amount": 150,
+            "category": "transporte"
+        },
+        {
+            "id": 3,
+            "amount": 280,
+            "category": "servicios"
+        },
+        {
+            "id": 5,
+            "amount": 520,
+            "category": "viaje"
+        },
+               {
+            "id": 6,
+            "amount": 115000,
+            "category": "mercado"
+        },
+        {
+            "id": 7,
+            "amount": 150,
+            "category": "transporte"
+        },
+        {
+            "id": 8,
+            "amount": 280,
+            "category": "servicios"
+        },
+        {
+            "id": 9,
+            "amount": 2000000000000000000,
+            "category": "viaje"
+        },
+        {
+            "id": 10,
+            "amount": 115000,
+            "category": "mercado"
+        },
+        {
+            "id": 11,
+            "amount": 150,
+            "category": "transporte"
+        },
+        {
+            "id": 12,
+            "amount": 280,
+            "category": "servicios"
+        },
+        {
+            "id": 13,
+            "amount": 520,
+            "category": "viaje"
+        },
+               {
+            "id": 14,
+            "amount": 115000,
+            "category": "mercado"
+        },
+        {
+            "id": 15,
+            "amount": 150,
+            "category": "transporte"
+        },
+        {
+            "id": 16,
+            "amount": 280,
+            "category": "servicios"
+        },
+        {
+            "id": 17,
+            "amount": 2000000000000000000,
+            "category": "viaje"
+        },
+        {
+            "id": 18,
+            "amount": 2000000000000000000,
+            "category": "viaje"
+        },
+        {
+            "id": 19,
+            "amount": 115000,
+            "category": "mercado"
+        },
+        {
+            "id": 20,
+            "amount": 150,
+            "category": "transporte"
+        },
+        {
+            "id": 21,
+            "amount": 280,
+            "category": "servicios"
+        },
+        {
+            "id": 22,
+            "amount": 520,
+            "category": "viaje"
+        },
+               {
+            "id": 23,
+            "amount": 115000,
+            "category": "mercado"
+        },
+        {
+            "id": 24,
+            "amount": 150,
+            "category": "transporte"
+        },
+        {
+            "id": 25,
+            "amount": 280,
+            "category": "servicios"
+        },
+        {
+            "id": 26,
+            "amount": 2000000000000000000,
+            "category": "viaje"
+        }
+    ]
+}

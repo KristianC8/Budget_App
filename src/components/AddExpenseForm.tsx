@@ -1,39 +1,45 @@
 import styles from './AddExpenseForm.module.css'
 import { AddIcon } from './icons/AddIcon'
 import { memo } from 'react'
-import type { form, errorsForm } from '../types/addExpenseForm'
-import { useForm } from '../hooks/useForm'
+import { useForm } from 'react-hook-form'
+import type { SubmitHandler } from 'react-hook-form'
+import { useExpenses } from '../hooks/useExpenses'
 
 export const AddExpenseForm = memo(() => {
-  const initialForm = {
-    amount: '',
-    category: ''
+  const { addExpense } = useExpenses()
+
+  const categoryEnum = {
+    mercado: 'mercado',
+    transporte: 'transporte',
+    medicina: 'medicina',
+    otro: 'otro'
+  } as const
+
+  // Tipo derivado automáticamente
+  type CategoryEnum = (typeof categoryEnum)[keyof typeof categoryEnum]
+
+  interface IFormInput {
+    amount: number
+    category: CategoryEnum
   }
 
-  const validateForm = (form: form) => {
-    const errors: errorsForm = {}
-
-    if (!form.amount.trim()) {
-      errors.amount = 'El monto es requerido'
+  const { register, handleSubmit, reset } = useForm<IFormInput>({
+    defaultValues: {
+      amount: undefined,
+      category: categoryEnum.mercado
     }
-
-    return errors
+  })
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    const newExpense = {
+      id: crypto.randomUUID(),
+      ...data
+    }
+    addExpense(newExpense)
+    reset()
   }
-
-  const {
-    formState,
-    errors,
-    onInputChange,
-    onSelectChange,
-    handleBlur,
-    handleKeyUp,
-    handleSubmit
-  } = useForm(initialForm, validateForm)
-
-  const { amount, category } = formState
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.inputContainer}>
         <label className={styles.label} htmlFor='amount'>
           Monto
@@ -44,14 +50,9 @@ export const AddExpenseForm = memo(() => {
             type='number'
             inputMode='numeric'
             className={styles.inputNumber}
-            name='amount'
+            {...register('amount', { required: 'El monto es requerido' })}
             id='amount'
-            value={amount}
-            onChange={onInputChange}
-            onKeyUp={handleKeyUp}
-            onBlur={handleBlur}
           />
-          {errors && <span>{errors.amount}</span>}
         </div>
       </div>
       <div className={styles.inputContainer}>
@@ -60,10 +61,8 @@ export const AddExpenseForm = memo(() => {
         </label>
         <select
           className={styles.select}
-          name='category'
+          {...register('category')}
           id='category'
-          value={category}
-          onChange={onSelectChange}
         >
           <option className={styles.option} value='mercado'>
             Mercado

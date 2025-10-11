@@ -1,5 +1,5 @@
 export interface expenseType {
-  id: number
-  amount: string
+  id: string
+  amount: number
   category: string
 }

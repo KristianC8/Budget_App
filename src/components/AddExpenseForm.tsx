@@ -5,37 +5,7 @@ import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
 import { useExpenses } from '../hooks/useExpenses'
 
-// import type { form, errorsForm } from '../types/addExpenseForm'
-// import { useForm } from '../hooks/useForm'
-
 export const AddExpenseForm = memo(() => {
-  console.log('render form')
-  // const initialForm = {
-  //   amount: '',
-  //   category: ''
-  // }
-
-  // const validateForm = (form: form) => {
-  //   const errors: errorsForm = {}
-
-  //   if (!form.amount.trim()) {
-  //     errors.amount = 'El monto es requerido'
-  //   }
-
-  //   return errors
-  // }
-
-  // const {
-  //   formState,
-  //   errors,
-  //   onInputChange,
-  //   onSelectChange,
-  //   handleBlur,
-  //   handleKeyUp,
-  //   handleSubmit
-  // } = useForm(initialForm, validateForm)
-
-  // const { amount, category } = formState
   const { addExpense } = useExpenses()
 
   const categoryEnum = {
@@ -60,10 +30,8 @@ export const AddExpenseForm = memo(() => {
     }
   })
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data)
     const newExpense = {
-      // id: crypto.randomUUID(),
-      id: Math.random(),
+      id: crypto.randomUUID(),
       ...data
     }
     addExpense(newExpense)
@@ -82,14 +50,9 @@ export const AddExpenseForm = memo(() => {
             type='number'
             inputMode='numeric'
             className={styles.inputNumber}
-            {...register('amount', { required: true })}
+            {...register('amount', { required: 'El monto es requerido' })}
             id='amount'
-            // value={amount}
-            // onChange={onInputChange}
-            // onKeyUp={handleKeyUp}
-            // onBlur={handleBlur}
           />
-          {/* {errors && <span>{errors.amount}</span>} */}
         </div>
       </div>
       <div className={styles.inputContainer}>
@@ -100,8 +63,6 @@ export const AddExpenseForm = memo(() => {
           className={styles.select}
           {...register('category')}
           id='category'
-          // value={category}
-          // onChange={onSelectChange}
         >
           <option className={styles.option} value='mercado'>
             Mercado

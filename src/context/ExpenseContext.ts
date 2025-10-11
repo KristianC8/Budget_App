@@ -4,7 +4,7 @@ import type { expenseType } from '../types/expense'
 interface ExpenseContextTypes {
   expenses: expenseType[]
   addExpense: (newExpense: expenseType) => void
-  removeExpense: (id: number) => void
+  removeExpense: (id: string) => void
 }
 
 export const ExpenseContext = createContext<ExpenseContextTypes | undefined>(

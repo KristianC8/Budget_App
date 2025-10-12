@@ -22,7 +22,7 @@ export const ExpensesTable = () => {
   })
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     rowId: string,
     field: string
   ) => {
@@ -38,6 +38,13 @@ export const ExpensesTable = () => {
 
   const handleBlur = () => {
     setEditingCell({ rowId: null, field: null })
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      e.currentTarget.blur()
+    }
   }
 
   return (
@@ -83,6 +90,7 @@ export const ExpensesTable = () => {
                             handleChange(e, expense.id, 'amount')
                           } // Actualiza el estado al escribir
                           onBlur={handleBlur} // Sale del modo edición al perder foco
+                          onKeyDown={handleKeyDown}
                         />
                       ) : (
                         <>
@@ -93,11 +101,37 @@ export const ExpensesTable = () => {
                     </td>
                     <td
                       className={styles.tData}
-                      onClick={() => {
+                      onDoubleClick={() => {
                         handleDoubleClick(expense.id, 'category')
                       }}
                     >
-                      {expense.category}
+                      {editingCell.rowId === expense.id &&
+                      editingCell.field === 'category' ? (
+                        <select
+                          className={styles.select}
+                          id='category'
+                          value={expense['category']}
+                          onChange={(e) =>
+                            handleChange(e, expense.id, 'category')
+                          } // Actualiza el estado al escribir
+                          onBlur={handleBlur}
+                        >
+                          <option className={styles.option} value='mercado'>
+                            Mercado
+                          </option>
+                          <option className={styles.option} value='transporte'>
+                            Transporte
+                          </option>
+                          <option className={styles.option} value='medicina'>
+                            Medicamentos
+                          </option>
+                          <option className={styles.option} value='otros'>
+                            Otros
+                          </option>
+                        </select>
+                      ) : (
+                        <>{expense.category}</>
+                      )}
                     </td>
                     <td className={styles.tData}>
                       <div className={styles.flexSE}>

@@ -63,6 +63,20 @@
   justify-content: space-evenly;
 }
 
+.select{
+  width: 100%;
+  padding: 4px 0;
+  background-color: #181818;
+  font-size: medium;
+  outline: none; 
+  border: none; 
+}
+
+.select>option{
+  border: none;
+  background-color: #181818;
+}
+
 @media(width <= 600px) {
   .container {
     padding: .5rem;

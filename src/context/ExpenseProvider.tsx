@@ -9,17 +9,17 @@ interface ExpenseProviderProps {
 
 const initialState = [
   {
-    id: 1,
+    id: '1',
     amount: 115000,
     category: 'mercado'
   },
   {
-    id: 2,
+    id: '2',
     amount: 150,
     category: 'transporte'
   },
   {
-    id: 3,
+    id: '3',
     amount: 280,
     category: 'servicios'
   }
@@ -33,13 +33,14 @@ export const ExpenseProvider = ({ children }: ExpenseProviderProps) => {
     setExpenses((prevState) => [...prevState, newExpense])
   }
 
-  const removeExpense = (id: number) => {
+  const removeExpense = (id: string) => {
     setExpenses((prevState) => prevState.filter((expense) => expense.id !== id))
   }
   return (
     <ExpenseContext.Provider
       value={{
         expenses,
+        setExpenses,
         addExpense,
         removeExpense
       }}

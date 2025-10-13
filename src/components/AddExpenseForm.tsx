@@ -9,10 +9,10 @@ export const AddExpenseForm = memo(() => {
   const { addExpense } = useExpenses()
 
   const categoryEnum = {
-    mercado: 'mercado',
-    transporte: 'transporte',
-    medicina: 'medicina',
-    otro: 'otro'
+    mercado: 'Mercado',
+    transporte: 'Transporte',
+    medicamentos: 'Medicamentos',
+    otros: 'otros'
   } as const
 
   // Tipo derivado automáticamente
@@ -64,16 +64,16 @@ export const AddExpenseForm = memo(() => {
           {...register('category')}
           id='category'
         >
-          <option className={styles.option} value='mercado'>
+          <option className={styles.option} value='Mercado'>
             Mercado
           </option>
-          <option className={styles.option} value='transporte'>
+          <option className={styles.option} value='Transporte'>
             Transporte
           </option>
-          <option className={styles.option} value='medicina'>
+          <option className={styles.option} value='Medicamentos'>
             Medicamentos
           </option>
-          <option className={styles.option} value='otros'>
+          <option className={styles.option} value='Otros'>
             Otros
           </option>
         </select>

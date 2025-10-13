@@ -30,6 +30,7 @@ export const ExpensesTable = () => {
       row.id === rowId ? { ...row, [field]: e.target.value } : row
     )
     setExpenses(updatedExpenses)
+    if (field === 'category') e.target.blur()
   }
 
   const handleDoubleClick = (rowId: string, field: string) => {
@@ -40,7 +41,9 @@ export const ExpensesTable = () => {
     setEditingCell({ rowId: null, field: null })
   }
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     if (e.key === 'Enter') {
       e.preventDefault()
       e.currentTarget.blur()
@@ -80,10 +83,13 @@ export const ExpensesTable = () => {
                         handleDoubleClick(expense.id, 'amount')
                       }}
                     >
+                      <span className={styles.sign}>$</span>
                       {editingCell.rowId === expense.id &&
                       editingCell.field === 'amount' ? (
                         <input
-                          type='text'
+                          type='number'
+                          inputMode='numeric'
+                          className={styles.inputNumber}
                           value={expense['amount']} // Valor actual de la celda
                           autoFocus // Foco automático al entrar al modo edición
                           onChange={(e) =>
@@ -93,10 +99,7 @@ export const ExpensesTable = () => {
                           onKeyDown={handleKeyDown}
                         />
                       ) : (
-                        <>
-                          <span className={styles.sign}>$</span>
-                          {expense.amount}
-                        </>
+                        <>{expense.amount}</>
                       )}
                     </td>
                     <td
@@ -115,17 +118,21 @@ export const ExpensesTable = () => {
                             handleChange(e, expense.id, 'category')
                           } // Actualiza el estado al escribir
                           onBlur={handleBlur}
+                          onKeyDown={handleKeyDown}
                         >
-                          <option className={styles.option} value='mercado'>
+                          <option className={styles.option} value='Mercado'>
                             Mercado
                           </option>
-                          <option className={styles.option} value='transporte'>
+                          <option className={styles.option} value='Transporte'>
                             Transporte
                           </option>
-                          <option className={styles.option} value='medicina'>
+                          <option
+                            className={styles.option}
+                            value='Medicamentos'
+                          >
                             Medicamentos
                           </option>
-                          <option className={styles.option} value='otros'>
+                          <option className={styles.option} value='Otros'>
                             Otros
                           </option>
                         </select>

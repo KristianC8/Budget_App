@@ -11,17 +11,22 @@ const initialState = [
   {
     id: '1',
     amount: 115000,
-    category: 'mercado'
+    category: 'Otros'
   },
   {
     id: '2',
     amount: 150,
-    category: 'transporte'
+    category: 'Transporte'
   },
   {
     id: '3',
     amount: 280,
-    category: 'servicios'
+    category: 'Medicamentos'
+  },
+  {
+    id: '4',
+    amount: 100280,
+    category: 'Mercado'
   }
 ]
 

@@ -4,6 +4,7 @@ import { memo } from 'react'
 import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
 import { useExpenses } from '../hooks/useExpenses'
+import { v4 as uuidv4 } from 'uuid'
 
 export const AddExpenseForm = memo(() => {
   const { addExpense } = useExpenses()
@@ -31,7 +32,8 @@ export const AddExpenseForm = memo(() => {
   })
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     const newExpense = {
-      id: crypto.randomUUID(),
+      // id: crypto.randomUUID(),
+      id: uuidv4(),
       ...data
     }
     addExpense(newExpense)

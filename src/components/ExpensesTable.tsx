@@ -9,7 +9,7 @@ import React from 'react'
 
 export const ExpensesTable = () => {
   // const results: expenseType[] = expenses.results
-  const { expenses, setExpenses, removeExpense } = useExpenses()
+  const { expenses, updateExpenses, removeExpense } = useExpenses()
 
   interface cellType {
     rowId: string | null
@@ -26,10 +26,10 @@ export const ExpensesTable = () => {
     rowId: string,
     field: string
   ) => {
-    const updatedExpenses = expenses.map((row) =>
-      row.id === rowId ? { ...row, [field]: e.target.value } : row
-    )
-    setExpenses(updatedExpenses)
+    const value = field === 'amount' ? Number(e.target.value) : e.target.value
+
+    updateExpenses(rowId, field, value)
+
     if (field === 'category') e.target.blur()
   }
 

@@ -41,11 +41,24 @@ export const ExpenseProvider = ({ children }: ExpenseProviderProps) => {
   const removeExpense = (id: string) => {
     setExpenses((prevState) => prevState.filter((expense) => expense.id !== id))
   }
+
+  const updateExpenses = (
+    rowId: string,
+    field: string,
+    value: number | string
+  ) => {
+    setExpenses((prevState) =>
+      prevState.map((expense) =>
+        expense.id === rowId ? { ...expense, [field]: value } : expense
+      )
+    )
+  }
+
   return (
     <ExpenseContext.Provider
       value={{
         expenses,
-        setExpenses,
+        updateExpenses,
         addExpense,
         removeExpense
       }}

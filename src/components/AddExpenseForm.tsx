@@ -9,25 +9,25 @@ import { v4 as uuidv4 } from 'uuid'
 export const AddExpenseForm = memo(() => {
   const { addExpense } = useExpenses()
 
-  const categoryEnum = {
+  const CATEGORIES = {
     mercado: 'Mercado',
     transporte: 'Transporte',
     medicamentos: 'Medicamentos',
-    otros: 'otros'
+    otros: 'Otros'
   } as const
 
   // Tipo derivado automáticamente
-  type CategoryEnum = (typeof categoryEnum)[keyof typeof categoryEnum]
+  type Category = (typeof CATEGORIES)[keyof typeof CATEGORIES]
 
   interface IFormInput {
     amount: number
-    category: CategoryEnum
+    category: Category
   }
 
   const { register, handleSubmit, reset } = useForm<IFormInput>({
     defaultValues: {
       amount: undefined,
-      category: categoryEnum.mercado
+      category: CATEGORIES.mercado
     }
   })
   const onSubmit: SubmitHandler<IFormInput> = (data) => {

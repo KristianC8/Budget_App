@@ -6,6 +6,7 @@ import { useExpenses } from '../hooks/useExpenses'
 import { AddExpenseForm } from './AddExpenseForm'
 import { useState } from 'react'
 import React from 'react'
+import { useForm } from 'react-hook-form'
 
 export const ExpensesTable = () => {
   // const results: expenseType[] = expenses.results
@@ -21,16 +22,16 @@ export const ExpensesTable = () => {
     field: null
   })
 
+  const { register, setValue } = useForm()
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     rowId: string,
     field: string
   ) => {
     const value = field === 'amount' ? Number(e.target.value) : e.target.value
-
     updateExpenses(rowId, field, value)
-
-    if (field === 'category') e.target.blur()
+    e.target.blur()
   }
 
   const handleDoubleClick = (rowId: string, field: string) => {
@@ -42,9 +43,16 @@ export const ExpensesTable = () => {
   }
 
   const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.KeyboardEvent<HTMLInputElement | HTMLSelectElement>,
+    rowId: string,
+    field: string
   ) => {
     if (e.key === 'Enter') {
+      const value =
+        field === 'amount'
+          ? Number(e.currentTarget.value)
+          : e.currentTarget.value
+      updateExpenses(rowId, field, value)
       e.preventDefault()
       e.currentTarget.blur()
     }
@@ -81,22 +89,26 @@ export const ExpensesTable = () => {
                       className={styles.tData}
                       onDoubleClick={() => {
                         handleDoubleClick(expense.id, 'amount')
+                        setValue('amount', expense['amount'])
                       }}
                     >
                       <span className={styles.sign}>$</span>
                       {editingCell.rowId === expense.id &&
                       editingCell.field === 'amount' ? (
                         <input
+                          {...register('amount')}
                           type='number'
                           inputMode='numeric'
                           className={styles.inputNumber}
-                          value={expense['amount']} // Valor actual de la celda
+                          // value={expense['amount']} // Valor actual de la celda
                           autoFocus // Foco automático al entrar al modo edición
-                          onChange={(e) =>
-                            handleChange(e, expense.id, 'amount')
-                          } // Actualiza el estado al escribir
+                          // onChange={(e) =>
+                          //   handleChange(e, expense.id, 'amount')
+                          // } // Actualiza el estado al escribir
                           onBlur={handleBlur} // Sale del modo edición al perder foco
-                          onKeyDown={handleKeyDown}
+                          onKeyDown={(e) => {
+                            handleKeyDown(e, expense.id, 'amount')
+                          }}
                         />
                       ) : (
                         <>{expense.amount}</>
@@ -106,19 +118,23 @@ export const ExpensesTable = () => {
                       className={styles.tData}
                       onDoubleClick={() => {
                         handleDoubleClick(expense.id, 'category')
+                        setValue('category', expense['category'])
                       }}
                     >
                       {editingCell.rowId === expense.id &&
                       editingCell.field === 'category' ? (
                         <select
+                          {...register('category')}
                           className={styles.select}
                           id='category'
-                          value={expense['category']}
-                          onChange={(e) =>
-                            handleChange(e, expense.id, 'category')
-                          } // Actualiza el estado al escribir
+                          // value={expense['category']}
+                          // onChange={(e) =>
+                          //   handleChange(e, expense.id, 'category')
+                          // } // Actualiza el estado al escribir
                           onBlur={handleBlur}
-                          onKeyDown={handleKeyDown}
+                          onChange={(e) => {
+                            handleChange(e, expense.id, 'category')
+                          }}
                         >
                           <option className={styles.option} value='Mercado'>
                             Mercado

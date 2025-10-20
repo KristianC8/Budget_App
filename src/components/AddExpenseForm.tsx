@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
 import { useExpenses } from '../hooks/useExpenses'
 import { v4 as uuidv4 } from 'uuid'
+import { helpNumericKeyDown } from '../helpers/helpNumericKeyDown'
 
 export const AddExpenseForm = memo(() => {
   const { addExpense } = useExpenses()
@@ -49,11 +50,20 @@ export const AddExpenseForm = memo(() => {
         <div className={styles['flex-h']}>
           <span className={styles.sign}>$</span>
           <input
-            type='number'
+            type='text'
             inputMode='numeric'
             className={styles.inputNumber}
-            {...register('amount', { required: 'El monto es requerido' })}
+            {...register('amount', {
+              required: 'El monto es requerido',
+              min: 1,
+              max: 999999999999
+            })}
+            onKeyDown={(e) => {
+              helpNumericKeyDown(e)
+            }}
             id='amount'
+            autoComplete='off'
+            maxLength={12}
           />
         </div>
       </div>

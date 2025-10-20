@@ -2,66 +2,22 @@
 // import type { expenseType } from '../types/expense'
 import styles from './ExpensesTable.module.css'
 import { DeleteIcon } from './icons/DeleteIcon'
-import { useExpenses } from '../hooks/useExpenses'
 import { AddExpenseForm } from './AddExpenseForm'
-import { useState } from 'react'
-import React from 'react'
-import { useForm } from 'react-hook-form'
-import { helpNumericKeyDown } from '../helpers/helpNumericKeyDown'
+import { useExpenses } from '../hooks/useExpenses'
+import { useEditExpense } from '../hooks/useEditExpense'
 
 export const ExpensesTable = () => {
   // const results: expenseType[] = expenses.results
-  const { expenses, updateExpenses, removeExpense } = useExpenses()
-
-  interface cellType {
-    rowId: string | null
-    field: string | null
-  }
-
-  const [editingCell, setEditingCell] = useState<cellType>({
-    rowId: null,
-    field: null
-  })
-
-  const { register, setValue } = useForm()
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    rowId: string,
-    field: string
-  ) => {
-    const value = field === 'amount' ? Number(e.target.value) : e.target.value
-    updateExpenses(rowId, field, value)
-    e.target.blur()
-  }
-
-  const handleDoubleClick = (rowId: string, field: string) => {
-    setEditingCell({ rowId, field })
-  }
-
-  const handleBlur = () => {
-    setEditingCell({ rowId: null, field: null })
-  }
-
-  const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLInputElement>,
-    rowId: string,
-    field: string,
-    actual: number
-  ) => {
-    helpNumericKeyDown(e)
-    if (e.key === 'Enter') {
-      const value =
-        field === 'amount'
-          ? e.currentTarget.value[0] === '0' || e.currentTarget.value === ''
-            ? actual
-            : Number(e.currentTarget.value)
-          : e.currentTarget.value
-      updateExpenses(rowId, field, value)
-      e.preventDefault()
-      e.currentTarget.blur()
-    }
-  }
+  const { expenses, removeExpense } = useExpenses()
+  const {
+    editingCell,
+    register,
+    setValue,
+    handleChange,
+    handleDoubleClick,
+    handleBlur,
+    handleKeyDown
+  } = useEditExpense()
 
   return (
     <div className={styles.container}>
@@ -104,10 +60,7 @@ export const ExpensesTable = () => {
                           {...register('amount', {
                             required: 'El monto es requerido',
                             min: 1,
-                            max: 999999999999,
-                            validate: (value) =>
-                              Number.isInteger(Number(value)) ||
-                              'Debe ser un número entero'
+                            max: 999999999999
                           })}
                           type='text'
                           inputMode='numeric'

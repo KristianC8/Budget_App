@@ -7,6 +7,7 @@ import { AddExpenseForm } from './AddExpenseForm'
 import { useState } from 'react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { helpNumericKeyDown } from '../helpers/helpNumericKeyDown'
 
 export const ExpensesTable = () => {
   // const results: expenseType[] = expenses.results
@@ -43,14 +44,18 @@ export const ExpensesTable = () => {
   }
 
   const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.KeyboardEvent<HTMLInputElement>,
     rowId: string,
-    field: string
+    field: string,
+    actual: number
   ) => {
+    helpNumericKeyDown(e)
     if (e.key === 'Enter') {
       const value =
         field === 'amount'
-          ? Number(e.currentTarget.value)
+          ? e.currentTarget.value[0] === '0' || e.currentTarget.value === ''
+            ? actual
+            : Number(e.currentTarget.value)
           : e.currentTarget.value
       updateExpenses(rowId, field, value)
       e.preventDefault()
@@ -89,26 +94,36 @@ export const ExpensesTable = () => {
                       className={styles.tData}
                       onDoubleClick={() => {
                         handleDoubleClick(expense.id, 'amount')
-                        setValue('amount', expense['amount'])
+                        setValue('amount', expense['amount']) //Valor actual
                       }}
                     >
                       <span className={styles.sign}>$</span>
                       {editingCell.rowId === expense.id &&
                       editingCell.field === 'amount' ? (
                         <input
-                          {...register('amount')}
-                          type='number'
+                          {...register('amount', {
+                            required: 'El monto es requerido',
+                            min: 1,
+                            max: 999999999999,
+                            validate: (value) =>
+                              Number.isInteger(Number(value)) ||
+                              'Debe ser un número entero'
+                          })}
+                          type='text'
                           inputMode='numeric'
                           className={styles.inputNumber}
-                          // value={expense['amount']} // Valor actual de la celda
                           autoFocus // Foco automático al entrar al modo edición
-                          // onChange={(e) =>
-                          //   handleChange(e, expense.id, 'amount')
-                          // } // Actualiza el estado al escribir
                           onBlur={handleBlur} // Sale del modo edición al perder foco
                           onKeyDown={(e) => {
-                            handleKeyDown(e, expense.id, 'amount')
+                            handleKeyDown(
+                              e,
+                              expense.id,
+                              'amount',
+                              expense['amount']
+                            )
                           }}
+                          maxLength={12}
+                          autoComplete='off'
                         />
                       ) : (
                         <>{expense.amount}</>
@@ -127,10 +142,6 @@ export const ExpensesTable = () => {
                           {...register('category')}
                           className={styles.select}
                           id='category'
-                          // value={expense['category']}
-                          // onChange={(e) =>
-                          //   handleChange(e, expense.id, 'category')
-                          // } // Actualiza el estado al escribir
                           onBlur={handleBlur}
                           onChange={(e) => {
                             handleChange(e, expense.id, 'category')

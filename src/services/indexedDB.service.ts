@@ -1,5 +1,6 @@
 import type { StoreConfig, BaseEntity } from '../types/dataBase'
 import { DB_NAME, DB_VERSION, STORES } from '../config/dataBase'
+import { Logger } from '../utils/Logger'
 
 class IndexedDBService {
   private db: IDBDatabase | null = null
@@ -26,7 +27,7 @@ class IndexedDBService {
 
       request.onsuccess = () => {
         this.db = request.result
-        console.log(`✅ Base de datos "${this.dbName}" inicializada`)
+        Logger.info(`✅ Base de datos "${this.dbName}" inicializada`)
         resolve(this.db)
       }
 
@@ -39,7 +40,7 @@ class IndexedDBService {
           return
         }
 
-        console.log(
+        Logger.info(
           `🔄 Actualizando  base de datos de v${event.oldVersion} a v${event.newVersion}`
         )
 
@@ -54,7 +55,7 @@ class IndexedDBService {
               store.createIndex(index.name, index.keyPath, index.options)
             })
 
-            console.log(`📦 Store creado: ${StoreConfig.name}`)
+            Logger.info(`📦 Store creado: ${StoreConfig.name}`)
           }
         })
       }
@@ -117,10 +118,11 @@ class IndexedDBService {
   }
 
   // Actualizar un registro existente
-  async update<T extends BaseEntity>(
+  async update(
     storeName: string,
     id: number,
-    updates: Partial<Omit<T, 'id'>>
+    field: string,
+    update: number | string
   ): Promise<number> {
     if (!this.db) throw new Error('Database not initialized')
 
@@ -140,7 +142,7 @@ class IndexedDBService {
 
         const updatedData = {
           ...existingData,
-          ...updates,
+          [field]: update,
           id,
           updatedAt: new Date().toISOString()
         }
@@ -221,7 +223,7 @@ class IndexedDBService {
     if (this.db) {
       this.db.close()
       this.db = null
-      console.log('🔒 Conexión a la base de datos cerrada')
+      Logger.info('🔒 Conexión a la base de datos cerrada')
     }
   }
 }

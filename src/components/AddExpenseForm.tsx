@@ -3,12 +3,11 @@ import { AddIcon } from './icons/AddIcon'
 import { memo } from 'react'
 import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
-import { useExpenses } from '../hooks/useExpenses'
-import { v4 as uuidv4 } from 'uuid'
 import { helpNumericKeyDown } from '../helpers/helpNumericKeyDown'
+import { useExpensesDB } from '../hooks/useExpensesDB'
 
 export const AddExpenseForm = memo(() => {
-  const { addExpense } = useExpenses()
+  const { addExpense } = useExpensesDB()
 
   const CATEGORIES = {
     mercado: 'Mercado',
@@ -31,13 +30,9 @@ export const AddExpenseForm = memo(() => {
       category: CATEGORIES.mercado
     }
   })
+
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    const newExpense = {
-      // id: crypto.randomUUID(),
-      id: uuidv4(),
-      ...data
-    }
-    addExpense(newExpense)
+    addExpense(data)
     reset()
   }
 
@@ -56,7 +51,8 @@ export const AddExpenseForm = memo(() => {
             {...register('amount', {
               required: 'El monto es requerido',
               min: 1,
-              max: 999999999999
+              max: 999999999999,
+              valueAsNumber: true
             })}
             onKeyDown={(e) => {
               helpNumericKeyDown(e)

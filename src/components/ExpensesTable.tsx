@@ -1,14 +1,11 @@
-// import expenses from '../mocks/expenses.json'
-// import type { expenseType } from '../types/expense'
 import styles from './ExpensesTable.module.css'
 import { DeleteIcon } from './icons/DeleteIcon'
 import { AddExpenseForm } from './AddExpenseForm'
-import { useExpenses } from '../hooks/useExpenses'
-import { useEditExpense } from '../hooks/useEditExpense'
+import { useEditExpenseDB } from '../hooks/useEditExpensesDB'
+import { useExpensesDB } from '../hooks/useExpensesDB'
 
 export const ExpensesTable = () => {
-  // const results: expenseType[] = expenses.results
-  const { expenses, removeExpense } = useExpenses()
+  const { expenses, deleteExpense } = useExpensesDB()
   const {
     editingCell,
     register,
@@ -17,7 +14,7 @@ export const ExpensesTable = () => {
     handleDoubleClick,
     handleBlur,
     handleKeyDown
-  } = useEditExpense()
+  } = useEditExpenseDB()
 
   return (
     <div className={styles.container}>
@@ -95,6 +92,7 @@ export const ExpensesTable = () => {
                           {...register('category')}
                           className={styles.select}
                           id='category'
+                          autoFocus
                           onBlur={handleBlur}
                           onChange={(e) => {
                             handleChange(e, expense.id, 'category')
@@ -125,7 +123,7 @@ export const ExpensesTable = () => {
                         <button
                           className={styles.deleteButton}
                           onClick={() => {
-                            removeExpense(expense.id)
+                            deleteExpense(expense.id)
                           }}
                         >
                           <DeleteIcon />

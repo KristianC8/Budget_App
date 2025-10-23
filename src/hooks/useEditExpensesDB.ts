@@ -1,14 +1,14 @@
-import { useExpenses } from '../hooks/useExpenses'
+import { useExpensesDB } from './useExpensesDB'
 import { useState } from 'react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { helpNumericKeyDown } from '../helpers/helpNumericKeyDown'
 
-export const useEditExpense = () => {
-  const { updateExpenses } = useExpenses()
+export const useEditExpenseDB = () => {
+  const { updateExpense } = useExpensesDB()
 
   interface cellType {
-    rowId: string | null
+    rowId: number | null
     field: string | null
   }
 
@@ -21,15 +21,15 @@ export const useEditExpense = () => {
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    rowId: string,
+    rowId: number,
     field: string
   ) => {
     const value = field === 'amount' ? Number(e.target.value) : e.target.value
-    updateExpenses(rowId, field, value)
+    updateExpense(rowId, field, value)
     e.target.blur()
   }
 
-  const handleDoubleClick = (rowId: string, field: string) => {
+  const handleDoubleClick = (rowId: number, field: string) => {
     setEditingCell({ rowId, field })
   }
 
@@ -39,7 +39,7 @@ export const useEditExpense = () => {
 
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
-    rowId: string,
+    rowId: number,
     field: string,
     actual: number
   ) => {
@@ -51,7 +51,7 @@ export const useEditExpense = () => {
             ? actual
             : Number(e.currentTarget.value)
           : e.currentTarget.value
-      updateExpenses(rowId, field, value)
+      updateExpense(rowId, field, value)
       e.preventDefault()
       e.currentTarget.blur()
     }

@@ -10,7 +10,6 @@
     padding: .5rem 1rem;
     gap: 1rem;
     border: solid 2px gray;
-
 }
 
 .inputContainer{
@@ -35,6 +34,7 @@
 
 .flex-h{
   display: flex; 
+  align-items: center;
   width: 100%;
 }
 
@@ -42,51 +42,6 @@
  color: var(--primary-color);
  font-weight: bold;
  font-size: small;
-}
-
-.inputNumber::-webkit-inner-spin-button,
-.inputNumber::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.inputNumber {
-  width: 100%;
-  padding: 5px 8px;
-  appearance: textfield; /* Firefox */
-  font-size: medium;
-  border: none;
-  background-color: transparent;
-  border-bottom: solid thin gray;
-  outline: none;
-  transition: all 0.3s ease; 
-}
-
-.inputNumber:focus {
-  border: none;
-  border-bottom: 1px solid var(--primary-color);   /* cambia el borde */
-  box-shadow: 0 4px 4px -4px rgb(144, 200, 83, .3);
-}
-
-.select{
-  width: 100%;
-  padding: 4px 0;
-  background-color: #181818;
-  font-size: medium;
-  outline: none; 
-  border: none; 
-  border: solid thin transparent;
-  transition: all 0.3s ease; 
-}
-
-.select:focus {
-  border-bottom: solid thin var(--primary-color);
-  box-shadow: 0 4px 4px -4px rgb(144, 200, 83, .3);
-}
-
-.select>option{
-  border: none;
-  background-color: #181818;
 }
 
 .button{

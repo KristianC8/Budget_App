@@ -1,5 +1,5 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Nunito, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -29,11 +29,79 @@ h1{
   font-size: 1.3rem;
 }
 
+h2{
+  font-family: NunitoItalic;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  font-weight: 900;
+}
+
+input {
+  font-family: Nunito;
+  width: 100%;
+  padding: 5px 8px;
+  appearance: textfield; /* Firefox */
+  font-size: medium;
+  border: none;
+  background-color: transparent;
+  border-bottom: solid thin gray;
+  outline: none;
+  transition: all 0.3s ease; 
+}
+
+input:focus {
+  border: none;
+  border-bottom: 1px solid var(--primary-color);   /* cambia el borde */
+  box-shadow: 0 4px 4px -4px rgb(45, 163, 232, .3);
+}
+
+select{
+  width: 100%;
+  padding: 4px 0;
+  background-color: #181818;
+  font-family: Nunito;
+  font-size: 1rem;
+  outline: none; 
+  border: none; 
+  border: solid thin transparent;
+  transition: all 0.3s ease; 
+}
+
+select:focus {
+  border-bottom: solid thin var(--primary-color);
+  box-shadow: 0 4px 4px -4px rgb(45, 163, 232, .3);
+}
+
+option {
+  font-family: Nunito, system-ui;
+}
+
+label{
+  font-family: NunitoItalic;
+}
+
+
 
 @font-face {
   font-family: "CarterOne";
   src: url("/public/fonts/CarterOne-Regular.ttf") format("truetype");
   font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/public/fonts/Nunito-VariableFont_wght.ttf") format("truetype");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NunitoItalic";
+  src: url("/public/fonts/Nunito-Italic-VariableFont_wght.ttf") format("truetype");
+  font-weight: 200 900;
   font-style: normal;
   font-display: swap;
 }

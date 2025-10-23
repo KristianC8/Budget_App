@@ -26,7 +26,16 @@ body{
 }
 
 h1{
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+}
+
+
+@font-face {
+  font-family: "CarterOne";
+  src: url("/public/fonts/CarterOne-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 @media (prefers-color-scheme: light) {

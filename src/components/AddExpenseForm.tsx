@@ -47,7 +47,6 @@ export const AddExpenseForm = memo(() => {
           <input
             type='text'
             inputMode='numeric'
-            className={styles.inputNumber}
             {...register('amount', {
               required: 'El monto es requerido',
               min: 1,
@@ -67,23 +66,11 @@ export const AddExpenseForm = memo(() => {
         <label className={styles.label} htmlFor='category'>
           Categoría
         </label>
-        <select
-          className={styles.select}
-          {...register('category')}
-          id='category'
-        >
-          <option className={styles.option} value='Mercado'>
-            Mercado
-          </option>
-          <option className={styles.option} value='Transporte'>
-            Transporte
-          </option>
-          <option className={styles.option} value='Medicamentos'>
-            Medicamentos
-          </option>
-          <option className={styles.option} value='Otros'>
-            Otros
-          </option>
+        <select {...register('category')} id='category'>
+          <option value='Mercado'>Mercado</option>
+          <option value='Transporte'>Transporte</option>
+          <option value='Medicamentos'>Medicamentos</option>
+          <option value='Otros'>Otros</option>
         </select>
       </div>
       <button title='Agregar' className={styles.button} type='submit'>

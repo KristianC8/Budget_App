@@ -73,6 +73,13 @@
   transition: none;
 }
 
+.flexH{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+}
+
 .select:focus {
   font-family: Nunito;
   font-size: .95rem;

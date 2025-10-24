@@ -4,6 +4,7 @@ import { AddExpenseForm } from './AddExpenseForm'
 import { useEditExpenseDB } from '../hooks/useEditExpensesDB'
 import { useExpensesDB } from '../hooks/useExpensesDB'
 import { TrashIcon } from './icons/TrashIcon'
+import MoneyLogo from './icons/MoneyLogo'
 
 export const ExpensesTable = () => {
   const { expenses, deleteExpense } = useExpensesDB()
@@ -20,7 +21,10 @@ export const ExpensesTable = () => {
   return (
     <div className={styles.container}>
       <div>
-        <h2>Gastos</h2>
+        <div className={styles.flexH}>
+          <MoneyLogo />
+          <h2>Gastos</h2>
+        </div>
         <div className={styles.tableContainer}>
           {expenses.length === 0 && (
             <p className={styles.noResults}>Ingresa aquí tus gastos</p>

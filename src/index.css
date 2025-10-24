@@ -84,7 +84,7 @@ label{
 
 @font-face {
   font-family: "CarterOne";
-  src: url("/public/fonts/CarterOne-Regular.ttf") format("truetype");
+  src: url("/fonts/CarterOne-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -92,7 +92,7 @@ label{
 
 @font-face {
   font-family: "Nunito";
-  src: url("/public/fonts/Nunito-VariableFont_wght.ttf") format("truetype");
+  src: url("/fonts/Nunito-VariableFont_wght.ttf") format("truetype");
   font-weight: 200 900;
   font-style: normal;
   font-display: swap;
@@ -100,7 +100,7 @@ label{
 
 @font-face {
   font-family: "NunitoItalic";
-  src: url("/public/fonts/Nunito-Italic-VariableFont_wght.ttf") format("truetype");
+  src: url("/fonts/Nunito-Italic-VariableFont_wght.ttf") format("truetype");
   font-weight: 200 900;
   font-style: normal;
   font-display: swap;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { dbService } from '../services/indexedDB.service'
-import { Logger } from '../utils/Logger'
+import { Logger } from '../utils/logger'
 
 export const useIndexedDb = () => {
   const [isReady, setIsReady] = useState(false)

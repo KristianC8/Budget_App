@@ -1,6 +1,6 @@
 import type { StoreConfig, BaseEntity } from '../types/dataBase'
 import { DB_NAME, DB_VERSION, STORES } from '../config/dataBase'
-import { Logger } from '../utils/Logger'
+import { Logger } from '../utils/logger'
 
 class IndexedDBService {
   private db: IDBDatabase | null = null

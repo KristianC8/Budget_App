@@ -1,23 +1,17 @@
-import './App.css'
-import { AppSection } from './components/AppSection'
-import { Header } from './components/Header'
-import { ExpensesProvider } from './context/ExpensesProvider'
-import { useIndexedDb } from './hooks/useIndexedDB'
-import { useDocumentTitle } from './hooks/useDocumentTitle'
+import { DBProvider } from './context/DBProvider.tsx'
+import { ExpensesProvider } from './context/ExpensesProvider.tsx'
+import { CategoriesProvider } from './context/CategoriesProvider.tsx'
+import { Router } from './router/index.tsx'
 
 function App() {
-  useDocumentTitle('Presupuesto App')
-  const { isReady, error: dbError } = useIndexedDb()
-  if (!isReady) return <div>Inicializando base de datos...</div>
-  if (dbError) return <div>Error: {dbError.message}</div>
-
   return (
-    <>
-      <Header />
+    <DBProvider>
       <ExpensesProvider>
-        <AppSection />
+        <CategoriesProvider>
+          <Router />
+        </CategoriesProvider>
       </ExpensesProvider>
-    </>
+    </DBProvider>
   )
 }
 

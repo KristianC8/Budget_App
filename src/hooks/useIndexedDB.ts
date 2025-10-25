@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { dbService } from '../services/indexedDB.service'
 import { Logger } from '../utils/logger'
 
-export const useIndexedDb = () => {
+export const useIndexedDb = (shouldCloseOnUnmount = false) => {
   const [isReady, setIsReady] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
@@ -20,9 +20,11 @@ export const useIndexedDb = () => {
     init()
 
     return () => {
-      dbService.close()
+      if (shouldCloseOnUnmount) {
+        dbService.close()
+      }
     }
-  }, [])
+  }, [shouldCloseOnUnmount])
 
   return { isReady, error }
 }

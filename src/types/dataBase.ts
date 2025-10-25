@@ -23,6 +23,8 @@ export interface StoreConfig {
     keyPath: string | string[]
     options?: IDBIndexParameters
   }[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  defaultData?: Array<any>
 }
 
 // Errores
@@ -32,3 +34,12 @@ export interface Errors {
   update: string | null
   read: string | null
 }
+
+export const DEFAULT_CATEGORIES = [
+  { id: 1, name: 'Mercado' },
+  { id: 2, name: 'Transporte' },
+  { id: 3, name: 'Farmacia' },
+  { id: 4, name: 'Servicios' },
+  { id: 5, name: 'Suscripciones' },
+  { id: 6, name: 'Otros' }
+]

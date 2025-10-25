@@ -1,6 +1,7 @@
 import type { StoreConfig, BaseEntity } from '../types/dataBase'
 import { DB_NAME, DB_VERSION, STORES } from '../config/dataBase'
 import { Logger } from '../utils/logger'
+import { DEFAULT_CATEGORIES } from '../types/dataBase'
 
 class IndexedDBService {
   private db: IDBDatabase | null = null
@@ -56,15 +57,35 @@ class IndexedDBService {
             })
 
             Logger.info(`📦 Store creado: ${StoreConfig.name}`)
+
+            if (StoreConfig.name === 'categories') {
+              this.insertDefaultCategories(store)
+            }
           }
         })
       }
     })
   }
 
+  private insertDefaultCategories(store: IDBObjectStore): void {
+    const now = new Date().toISOString()
+
+    DEFAULT_CATEGORIES.forEach((cat) => {
+      store.add({
+        ...cat,
+        createdAt: now,
+        updatedAt: now
+      })
+    })
+
+    Logger.info(
+      `✨ ${DEFAULT_CATEGORIES.length} categorías por defecto insertadas`
+    )
+  }
+
   //Obtener todos los registros de un Store
   async getAll<T extends BaseEntity>(storeName: string): Promise<T[]> {
-    if (!this.db) throw new Error('Databa not initialized')
+    if (!this.db) throw new Error('Database not initialized')
 
     return new Promise((resolve, reject) => {
       const transaction = this.db!.transaction([storeName], 'readonly')
@@ -118,11 +139,27 @@ class IndexedDBService {
   }
 
   // Actualizar un registro existente
+  // Sobre carga de funciones TypeScript para que pueda decidir el tipo para update
   async update(
     storeName: string,
     id: number,
     field: string,
     update: number | string
+  ): Promise<number>
+
+  async update<T extends BaseEntity>(
+    storeName: string,
+    id: number,
+    field: undefined,
+    update: Partial<Omit<T, 'id'>>
+  ): Promise<number>
+
+  // Implementación
+  async update<T extends BaseEntity>(
+    storeName: string,
+    id: number,
+    field?: string,
+    update?: number | string | Partial<Omit<T, 'id'>>
   ): Promise<number> {
     if (!this.db) throw new Error('Database not initialized')
 
@@ -140,11 +177,22 @@ class IndexedDBService {
           return
         }
 
-        const updatedData = {
-          ...existingData,
-          [field]: update,
-          id,
-          updatedAt: new Date().toISOString()
+        let updatedData = {}
+
+        if (field) {
+          updatedData = {
+            ...existingData,
+            [field]: update,
+            id,
+            updatedAt: new Date().toISOString()
+          }
+        } else {
+          updatedData = {
+            ...existingData,
+            ...(update as Partial<Omit<T, 'id'>>),
+            id,
+            updatedAt: new Date().toISOString()
+          }
         }
 
         const updateRequest = store.put(updatedData)

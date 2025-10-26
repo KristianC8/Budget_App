@@ -6,10 +6,10 @@ import { FinanceLogo } from './icons/FinanceLogo'
 export const Header = () => {
   return (
     <header className={styles.header}>
-      <div className={styles.flexH}>
+      <Link href='/' className={styles.flexH}>
         <FinanceLogo />
         <h1 className={styles.title}>Presupuesto</h1>
-      </div>
+      </Link>
       <nav>
         <Link href='/config' className={styles.link}>
           <SettingsIcon />

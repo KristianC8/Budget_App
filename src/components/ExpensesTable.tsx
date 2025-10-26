@@ -5,9 +5,11 @@ import { useEditExpenseDB } from '../hooks/useEditExpensesDB'
 import { useExpensesDB } from '../hooks/useExpensesDB'
 import { TrashIcon } from './icons/TrashIcon'
 import MoneyLogo from './icons/MoneyLogo'
+import { useCategoriesDB } from '../hooks/useCategoriesDB'
 
 export const ExpensesTable = () => {
   const { expenses, deleteExpense } = useExpensesDB()
+  const { categories } = useCategoriesDB()
   const {
     editingCell,
     register,
@@ -99,7 +101,7 @@ export const ExpensesTable = () => {
                         {editingCell.rowId === expense.id &&
                         editingCell.field === 'category' ? (
                           <select
-                            {...register('category')}
+                            {...register('category', { required: true })}
                             className={styles.select}
                             id='category'
                             autoFocus
@@ -107,25 +109,22 @@ export const ExpensesTable = () => {
                             onChange={(e) => {
                               handleChange(e, expense.id, 'category')
                             }}
+                            disabled={categories.length === 0}
                           >
-                            <option className={styles.option} value='Mercado'>
-                              Mercado
+                            {categories.length === 0 && (
+                              <option value={expense.category}>
+                                {expense.category}
+                              </option>
+                            )}
+                            <option value='' hidden>
+                              Selecciona uno
                             </option>
-                            <option
-                              className={styles.option}
-                              value='Transporte'
-                            >
-                              Transporte
-                            </option>
-                            <option
-                              className={styles.option}
-                              value='Medicamentos'
-                            >
-                              Medicamentos
-                            </option>
-                            <option className={styles.option} value='Otros'>
-                              Otros
-                            </option>
+                            {categories.length > 0 &&
+                              categories.map((category) => (
+                                <option key={category.id} value={category.name}>
+                                  {category.name}
+                                </option>
+                              ))}
                           </select>
                         ) : (
                           <>{expense.category}</>

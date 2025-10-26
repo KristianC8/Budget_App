@@ -50,6 +50,13 @@ export const CategoriesTest = () => {
         >
           Borrar Categoria
         </button>
+        <button
+          onClick={() => {
+            console.log(categories)
+          }}
+        >
+          Mostrar categorias
+        </button>
       </div>
     </>
   )

@@ -6,7 +6,7 @@ export function ExpensesList() {
   const handleAdd = async () => {
     addExpense({
       amount: 1000,
-      category: 'Arriendo'
+      category: 'Otros'
     })
     // ✨ La UI ya se actualizó instantáneamente!
     // No necesitas esperar a que termine la operación de DB

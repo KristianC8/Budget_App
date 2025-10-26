@@ -53,6 +53,10 @@
   cursor: pointer;
 }
 
+.select {
+  font-family: NunitoItalic;
+}
+
 @media(width <= 600px) {
   .inputContainer:nth-child(1){
     width: 40%;

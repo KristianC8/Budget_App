@@ -5,29 +5,31 @@ import { useForm } from 'react-hook-form'
 import type { SubmitHandler } from 'react-hook-form'
 import { helpNumericKeyDown } from '../helpers/helpNumericKeyDown'
 import { useExpensesDB } from '../hooks/useExpensesDB'
+import { useCategoriesDB } from '../hooks/useCategoriesDB'
 
 export const AddExpenseForm = memo(() => {
   const { addExpense } = useExpensesDB()
+  const { categories } = useCategoriesDB()
 
-  const CATEGORIES = {
-    mercado: 'Mercado',
-    transporte: 'Transporte',
-    medicamentos: 'Medicamentos',
-    otros: 'Otros'
-  } as const
+  // const CATEGORIES = {
+  //   mercado: 'Mercado',
+  //   transporte: 'Transporte',
+  //   medicamentos: 'Medicamentos',
+  //   otros: 'Otros'
+  // } as const
 
-  // Tipo derivado automáticamente
-  type Category = (typeof CATEGORIES)[keyof typeof CATEGORIES]
+  // // Tipo derivado automáticamente
+  // type Category = (typeof CATEGORIES)[keyof typeof CATEGORIES]
 
   interface IFormInput {
     amount: number
-    category: Category
+    category: string
   }
 
   const { register, handleSubmit, reset } = useForm<IFormInput>({
     defaultValues: {
       amount: undefined,
-      category: CATEGORIES.mercado
+      category: ''
     }
   })
 
@@ -66,11 +68,25 @@ export const AddExpenseForm = memo(() => {
         <label className={styles.label} htmlFor='category'>
           Categoría
         </label>
-        <select {...register('category')} id='category'>
-          <option value='Mercado'>Mercado</option>
-          <option value='Transporte'>Transporte</option>
-          <option value='Medicamentos'>Medicamentos</option>
-          <option value='Otros'>Otros</option>
+        <select
+          {...register('category', { required: true })}
+          id='category'
+          disabled={categories.length === 0}
+          className={styles.select}
+          defaultValue=''
+        >
+          {categories.length === 0 && (
+            <option value=''>Crea una categoría</option>
+          )}
+          <option value='' hidden>
+            Selecciona uno
+          </option>
+          {categories.length > 0 &&
+            categories.map((category) => (
+              <option key={category.id} value={category.name}>
+                {category.name}
+              </option>
+            ))}
         </select>
       </div>
       <button title='Agregar' className={styles.button} type='submit'>

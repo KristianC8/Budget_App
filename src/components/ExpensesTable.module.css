@@ -22,8 +22,6 @@
   min-height: calc(100vh - 213px);
   max-height: calc(100vh - 213px);
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary-color) transparent;
 }
 
 .table{
@@ -47,17 +45,21 @@
 }
 
 .tData{
-    padding: .2rem 1rem;
+    padding: .2rem .8rem;
     border: solid thin gray;
     text-align: left;
+    overflow-x: auto;
+    max-width: calc((50vw - 3.5rem) * .55);
+    white-space: nowrap;
+    height: 2rem;  
 }
 
 .deleteButton{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 2rem;
-    width: 2rem;
+    height: 1.2rem;
+    width: 1.2rem;
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -118,7 +120,6 @@
   }
   .tData{
     padding: .2rem .1rem;
-    overflow-x: auto;
      max-width: 120px;
   }
 

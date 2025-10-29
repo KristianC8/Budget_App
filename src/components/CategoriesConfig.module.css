@@ -1,0 +1,80 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: solid 2px gray;
+    border-radius: .5rem;
+    padding: 1rem;
+    min-height: calc(100vh - 72px);
+    max-height: calc(100vh - 72px);
+    /* max-width: 34rem; */
+}
+
+.listContainer{
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
+}
+
+.flexHC{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+}
+
+.flexHL{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  border-bottom: solid thin gray;
+  transition: all .3s;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.flexHL:hover{
+  border-bottom: solid thin var(--primary-color);
+}
+
+.ul{
+    list-style: none;
+}
+
+.deleteButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    width: 2rem;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.form{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    padding: .5rem 0;
+    gap: 1rem;
+}
+
+.inputContainer{
+  width: 80%;
+}
+
+.label{
+ color: var(--primary-color);
+ font-weight: bold;
+ font-size: small;
+}
+
+.button{
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}

@@ -1,0 +1,18 @@
+export const CategoriesLogo = () => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='18'
+      height='18'
+      viewBox='0 0 24 24'
+    >
+      <path
+        fill='currentColor'
+        fill-rule='evenodd'
+        d='M4 4h5v5H4zm-2 7V2h9v9zm2 4h5v5H4zm-2 7v-9h9v9zM20 4h-5v5h5zm-7-2v9h9V2zm2 13h5v5h-5zm-2 7v-9h9v9z'
+        stroke-width='0.3'
+        stroke='currentColor'
+      />
+    </svg>
+  )
+}

@@ -35,8 +35,8 @@ export const ExpensesTable = () => {
             <table className={styles.table}>
               <colgroup>
                 <col style={{ width: '5%' }} />
-                <col style={{ width: '50%' }} />
-                <col style={{ width: '35%' }} />
+                <col style={{ width: '30%' }} />
+                <col style={{ width: '55%' }} />
                 <col style={{ width: '10%' }} />
               </colgroup>
               <thead>

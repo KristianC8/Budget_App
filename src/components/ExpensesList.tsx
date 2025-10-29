@@ -20,7 +20,7 @@ export function ExpensesList() {
   if (loading) return <div>Cargando gastos...</div>
 
   return (
-    <div>
+    <div style={{ overflow: 'hidden' }}>
       <h2>Gastos (Context)</h2>
       <button onClick={handleAdd}>Agregar Gasto</button>
       {error.add && <span>{error.add}</span>}

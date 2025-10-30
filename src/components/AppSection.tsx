@@ -9,9 +9,7 @@ export const AppSection = () => {
         <ExpensesList />
       </div>
 
-      <div className={styles.right}>
-        <ExpensesTable />
-      </div>
+      <ExpensesTable />
     </section>
   )
 }

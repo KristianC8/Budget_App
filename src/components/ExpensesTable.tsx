@@ -6,8 +6,11 @@ import { useExpensesDB } from '../hooks/useExpensesDB'
 import { TrashIcon } from './icons/TrashIcon'
 import MoneyLogo from './icons/MoneyLogo'
 import { useCategoriesDB } from '../hooks/useCategoriesDB'
+import { useRef } from 'react'
+import { useScrollBottom } from '../hooks/useScrollBottom'
 
 export const ExpensesTable = () => {
+  const tableRef = useRef<HTMLDivElement | null>(null)
   const { expenses, deleteExpense } = useExpensesDB()
   const { categories } = useCategoriesDB()
   const {
@@ -20,14 +23,16 @@ export const ExpensesTable = () => {
     handleKeyDown
   } = useEditExpenseDB()
 
+  useScrollBottom(tableRef, expenses)
+
   return (
-    <div className={styles.container}>
+    <section className={styles.container}>
       <div>
         <div className={styles.flexH}>
           <MoneyLogo />
           <h2>Gastos</h2>
         </div>
-        <div className={styles.tableContainer}>
+        <div className={styles.tableContainer} ref={tableRef}>
           {expenses.length === 0 && (
             <p className={styles.noResults}>Ingresa aquí tus gastos</p>
           )}
@@ -103,7 +108,6 @@ export const ExpensesTable = () => {
                           <select
                             {...register('category', { required: true })}
                             className={styles.select}
-                            id='category'
                             autoFocus
                             onBlur={handleBlur}
                             onChange={(e) => {
@@ -151,6 +155,6 @@ export const ExpensesTable = () => {
       </div>
 
       <AddExpenseForm />
-    </div>
+    </section>
   )
 }

@@ -9,10 +9,6 @@
     background-color: darkolivegreen;
 }
 
-.right{
-    height: 100%;
-}
-
 @media(width >= 600px){
     .section{
     padding: 1rem;

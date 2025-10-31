@@ -2,30 +2,29 @@ import { useCategoriesDB } from '../hooks/useCategoriesDB'
 import styles from './CategoriesConfig.module.css'
 import { CategoriesLogo } from './icons/CategoriesLogo'
 import { DeleteIcon } from './icons/DeleteIcon'
+import { useEditCategoriesDB } from '../hooks/useEditCategoriesDB'
+import { AddCategoryForm } from './AddCategoryForm'
 import { useForm } from 'react-hook-form'
-import { AddIcon } from './icons/AddIcon'
-import type { SubmitHandler } from 'react-hook-form'
+import { useRef } from 'react'
+import { useScrollBottom } from '../hooks/useScrollBottom'
 
 export const CategoriesConfig = () => {
-  const { categories, addCategory, deleteCategory } = useCategoriesDB()
+  const listRef = useRef<HTMLDivElement | null>(null)
+  const { categories, deleteCategory } = useCategoriesDB()
+  const { editingCategory, handleDoubleClick, handleBlur, handleKeyDown } =
+    useEditCategoriesDB()
 
-  interface IFormInput {
+  interface inputType {
     name: string
   }
 
-  const { register, handleSubmit, reset } = useForm<IFormInput>({
-    defaultValues: {
-      name: undefined
-    }
-  })
+  const { register, setValue } = useForm<inputType>()
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    addCategory(data)
-    reset()
-  }
+  useScrollBottom(listRef, categories)
+
   return (
     <section className={styles.section}>
-      <div className={styles.listContainer}>
+      <div className={styles.listContainer} ref={listRef}>
         <div className={styles.flexHC}>
           <CategoriesLogo />
           <h2>Categorías</h2>
@@ -33,8 +32,37 @@ export const CategoriesConfig = () => {
         <ul className={styles.ul}>
           {categories &&
             categories.map((category) => (
-              <li key={category.id} className={styles.flexHL}>
-                {category.name}
+              <li
+                key={category.id}
+                className={styles.flexHL}
+                onDoubleClick={() => {
+                  handleDoubleClick(category.id)
+                  setValue('name', category.name)
+                }}
+                onBlur={handleBlur}
+              >
+                {editingCategory.id === category.id ? (
+                  <div data-deepl-do-not-translate='true'>
+                    <input
+                      type='text'
+                      inputMode='text'
+                      {...register('name', {
+                        required: true
+                      })}
+                      onKeyDown={(e) => {
+                        handleKeyDown(e, category.id, category.name)
+                      }}
+                      autoFocus
+                      spellCheck={false}
+                      autoCorrect='off'
+                      autoComplete='off'
+                      data-deepl-do-not-translate='true'
+                      maxLength={20}
+                    />
+                  </div>
+                ) : (
+                  <>{category.name}</>
+                )}
                 <button
                   className={styles.deleteButton}
                   onClick={() => {
@@ -47,29 +75,7 @@ export const CategoriesConfig = () => {
             ))}
         </ul>
       </div>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.inputContainer}>
-          <label className={styles.label} htmlFor='category'>
-            Agregar categoría
-          </label>
-          <div className={styles['flex-h']}>
-            <input
-              type='text'
-              inputMode='text'
-              {...register('name', {
-                required: true
-              })}
-              id='category'
-              autoComplete='off'
-              maxLength={20}
-            />
-          </div>
-        </div>
-
-        <button title='Agregar' className={styles.button} type='submit'>
-          <AddIcon />
-        </button>
-      </form>
+      <AddCategoryForm />
     </section>
   )
 }

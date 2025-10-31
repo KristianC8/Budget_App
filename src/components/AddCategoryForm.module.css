@@ -1,0 +1,25 @@
+.form{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    padding: .5rem 0;
+    gap: 1rem;
+}
+
+.inputContainer{
+  width: 80%;
+}
+
+.label{
+ color: var(--primary-color);
+ font-weight: bold;
+ font-size: small;
+}
+
+.button{
+  display: grid;
+  place-items: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}

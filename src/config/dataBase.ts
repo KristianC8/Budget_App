@@ -19,5 +19,13 @@ export const STORES: StoreConfig[] = [
     indexes: [
       { name: 'createdAt', keyPath: 'createdAt', options: { unique: false } }
     ]
+  },
+  {
+    name: 'income',
+    keyPath: 'id',
+    autoIncrement: true,
+    indexes: [
+      { name: 'createdAt', keyPath: 'createdAt', options: { unique: false } }
+    ]
   }
 ]

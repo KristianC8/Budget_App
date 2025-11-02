@@ -13,6 +13,17 @@ export interface Category extends BaseEntity {
   name: string
 }
 
+interface Discount {
+  name: string
+  amount: number
+}
+
+export interface Income extends BaseEntity {
+  name: string
+  amount: number
+  discounts: Discount[]
+}
+
 // Configuración de stores
 export interface StoreConfig {
   name: string
@@ -23,8 +34,6 @@ export interface StoreConfig {
     keyPath: string | string[]
     options?: IDBIndexParameters
   }[]
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  defaultData?: Array<any>
 }
 
 // Errores

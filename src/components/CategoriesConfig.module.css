@@ -1,10 +1,7 @@
-.section {
+.container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: solid 2px gray;
-    border-radius: .5rem;
-    padding: 1rem;
     min-height: calc(100vh - 72px);
     max-height: calc(100vh - 72px);
     /* max-width: 34rem; */

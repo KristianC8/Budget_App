@@ -1,15 +1,12 @@
-import { Totals } from './Totals'
+import { Balance } from './Balance'
+import { Income } from './Income'
+import styles from './Dashboard.module.css'
 
 export const Dashboard = () => {
-  function resetDB() {
-    indexedDB.deleteDatabase('BudgetAppDB')
-    alert('Base de datos eliminada')
-  }
   return (
-    <section>
-      <h2>Dashboard</h2>
-      <Totals />
-      <button onClick={resetDB}>Eliminar DB</button>
+    <section className={styles.container}>
+      <Income />
+      <Balance />
     </section>
   )
 }

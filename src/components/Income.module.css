@@ -1,0 +1,10 @@
+.container{
+    min-height: calc(50vh - 1.5rem - 20px);
+    max-height: calc(50vh - 1.5rem - 20px);
+}
+
+.flexHC{
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+}

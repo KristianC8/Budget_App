@@ -82,7 +82,11 @@ label{
   font-family: NunitoItalic;
 }
 
-
+.sections{
+  border: solid 2px gray;
+  border-radius: .5rem;
+  padding: 1rem;
+}
 
 @font-face {
   font-family: "CarterOne";

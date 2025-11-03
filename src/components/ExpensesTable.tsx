@@ -26,7 +26,7 @@ export const ExpensesTable = () => {
   useScrollBottom(tableRef, expenses)
 
   return (
-    <section className={styles.container}>
+    <section className={`sections ${styles.container}`}>
       <div>
         <div className={styles.flexH}>
           <MoneyLogo />

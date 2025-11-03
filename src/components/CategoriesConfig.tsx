@@ -23,7 +23,7 @@ export const CategoriesConfig = () => {
   useScrollBottom(listRef, categories)
 
   return (
-    <section className={styles.section}>
+    <section className={`sections ${styles.container}`}>
       <div className={styles.listContainer} ref={listRef}>
         <div className={styles.flexHC}>
           <CategoriesLogo />

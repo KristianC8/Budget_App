@@ -10,7 +10,7 @@ import { useScrollBottom } from '../hooks/useScrollBottom'
 
 export const CategoriesConfig = () => {
   const listRef = useRef<HTMLDivElement | null>(null)
-  const { categories, deleteCategory } = useCategoriesDB()
+  const { categories, loading, error, deleteCategory } = useCategoriesDB()
   const { editingCategory, handleDoubleClick, handleBlur, handleKeyDown } =
     useEditCategoriesDB()
 
@@ -29,6 +29,11 @@ export const CategoriesConfig = () => {
           <CategoriesLogo />
           <h2>Categorías</h2>
         </div>
+        {loading && <div>Cargando categorias...</div>}
+        {error.add && <span>{error.add}</span>}
+        {error.delete && <span>{error.delete}</span>}
+        {error.update && <span>{error.update}</span>}
+        {error.read && <span>{error.read}</span>}
         <ul className={styles.ul}>
           {categories &&
             categories.map((category) => (

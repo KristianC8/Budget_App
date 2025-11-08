@@ -5,17 +5,17 @@
   color: rgba(255, 255, 255, 0.87);
   /* background-color: #242424; */
   background-color: #171717;
-  
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
   /* --primary-color: #90c853;  */
-  --primary-color:#2da3e8;
+  --primary-color: #2da3e8;
 }
 
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -23,15 +23,15 @@
   scrollbar-color: var(--primary-color) transparent;
 }
 
-body{
+body {
   min-width: 305px;
 }
 
-h1{
+h1 {
   font-size: 1.3rem;
 }
 
-h2{
+h2 {
   font-family: NunitoItalic;
   font-size: 1.2rem;
   color: var(--primary-color);
@@ -48,43 +48,43 @@ input {
   background-color: transparent;
   border-bottom: solid thin gray;
   outline: none;
-  transition: all 0.3s ease; 
+  transition: all 0.3s ease;
 }
 
 input:focus {
   border: none;
-  border-bottom: 1px solid var(--primary-color);   /* cambia el borde */
-  box-shadow: 0 4px 4px -4px rgb(45, 163, 232, .3);
+  border-bottom: 1px solid var(--primary-color); /* cambia el borde */
+  box-shadow: 0 4px 4px -4px rgb(45, 163, 232, 0.3);
 }
 
-select{
+select {
   width: 100%;
   padding: 4px 0;
   background-color: #181818;
   font-family: Nunito;
   font-size: 1rem;
-  outline: none; 
-  border: none; 
+  outline: none;
+  border: none;
   border: solid thin transparent;
-  transition: all 0.3s ease; 
+  transition: all 0.3s ease;
 }
 
 select:focus {
   border-bottom: solid thin var(--primary-color);
-  box-shadow: 0 4px 4px -4px rgb(45, 163, 232, .3);
+  box-shadow: 0 4px 4px -4px rgb(45, 163, 232, 0.3);
 }
 
 option {
   font-family: Nunito, system-ui;
 }
 
-label{
+label {
   font-family: NunitoItalic;
 }
 
-.sections{
+.sections {
   border: solid 2px gray;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   padding: 1rem;
 }
 

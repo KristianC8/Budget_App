@@ -1,17 +1,17 @@
-.section{
-    min-height: calc(100vh - 40px);
+.section {
+  min-height: calc(100vh - 40px);
 }
 
-@media(width >= 600px){
-    .section{
+@media (width >= 600px) {
+  .section {
     padding: 1rem;
-    }
+  }
 }
 
-@media(width >= 1000px){
-    .section{
+@media (width >= 1000px) {
+  .section {
     display: grid;
     grid-template-columns: repeat(2, minmax(400px, 1fr));
     gap: 1rem;
-    }
+  }
 }

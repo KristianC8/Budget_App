@@ -1,32 +1,44 @@
-.header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 80%;
-    padding: .25rem 2rem;
-    margin: 0 auto;
-    background-color: var(--primary-color);
-    border-radius: 0 0 .5rem .5rem;
-    text-align: start;
-    line-height: 1.5rem;
-    height: 2.5rem;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  padding: 0.25rem 2rem;
+  margin: 0 auto;
+  background-color: var(--primary-color);
+  border-radius: 0 0 0.5rem 0.5rem;
+  text-align: start;
+  line-height: 1.5rem;
+  height: 2.5rem;
 }
 
-.link{
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: inherit;
+.link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
 }
 
-.title{
-    font-family: CarterOne, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+.title {
+  font-family:
+    CarterOne,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Open Sans',
+    'Helvetica Neue',
+    sans-serif;
 }
 
-.flexH{
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-    text-decoration: none;
-    color: inherit;
+.flexH {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
 }

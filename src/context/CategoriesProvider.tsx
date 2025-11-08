@@ -36,33 +36,33 @@ export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
   }, [])
 
   // Agregar ///////////////////////////////////////////////////////////////////////////////////
-  const addCategory = useCallback(async (expense: Omit<Category, 'id'>) => {
+  const addCategory = useCallback(async (category: Omit<Category, 'id'>) => {
     // ID temporal para UI inmediata
     const tempId = Date.now()
-    const optimisticExpense: Category = {
-      ...expense,
+    const optimisticCategory: Category = {
+      ...category,
       id: tempId,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     }
 
     // 1. Actualizar UI INMEDIATAMENTE
-    setCategories((prev) => [...prev, optimisticExpense])
+    setCategories((prev) => [...prev, optimisticCategory])
 
     try {
       // 2. Guardar en DB en background
-      const realId = await categoriesRepository.add(expense)
+      const realId = await categoriesRepository.add(category)
 
       // 3. Reemplazar ID temporal con ID real
       setCategories((prev) =>
-        prev.map((exp) => (exp.id === tempId ? { ...exp, id: realId } : exp))
+        prev.map((cat) => (cat.id === tempId ? { ...cat, id: realId } : cat))
       )
       setError((prev) => ({ ...prev, add: null }))
 
       return realId
     } catch (error) {
       // 4. ROLLBACK si falla
-      setCategories((prev) => prev.filter((exp) => exp.id !== tempId))
+      setCategories((prev) => prev.filter((cat) => cat.id !== tempId))
       setError((prev) => ({ ...prev, add: `Error adding category: ${error}` }))
     }
   }, [])
@@ -71,10 +71,10 @@ export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
   const deleteCategory = useCallback(
     async (id: number) => {
       // Guardar tarea eliminada para rollback
-      const deletedExpense = categories.find((exp) => exp.id === id)
+      const deletedCategory = categories.find((cat) => cat.id === id)
 
       // 1. Actualizar UI INMEDIATAMENTE
-      setCategories((prev) => prev.filter((exp) => exp.id !== id))
+      setCategories((prev) => prev.filter((cat) => cat.id !== id))
 
       try {
         // 2. Eliminar de DB en background
@@ -82,8 +82,8 @@ export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
         setError((prev) => ({ ...prev, delete: null }))
       } catch (error) {
         // 3. ROLLBACK si falla
-        if (deletedExpense) {
-          setCategories((prev) => [...prev, deletedExpense])
+        if (deletedCategory) {
+          setCategories((prev) => [...prev, deletedCategory])
         }
         setError((prev) => ({
           ...prev,
@@ -98,7 +98,7 @@ export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
   const updateCategory = useCallback(
     async (id: number, update: Partial<Omit<Category, 'id'>>) => {
       // Guardar estado anterior para rollback
-      const previousExpenses = categories
+      const previousCategories = categories
 
       // 1. Actualizar UI INMEDIATAMENTE
       setCategories((prev) =>
@@ -119,7 +119,7 @@ export const CategoriesProvider = ({ children }: { children: ReactNode }) => {
         setError((prev) => ({ ...prev, update: null }))
       } catch (error) {
         // 3. ROLLBACK si falla
-        setCategories(previousExpenses)
+        setCategories(previousCategories)
         setError((prev) => ({
           ...prev,
           update: `Error updating category: ${error}`

@@ -1,7 +1,10 @@
+import { useIncomeDB } from '../hooks/useIncomeDB'
+import { AddIcon } from './icons/AddIcon'
 import { IncomeLogo } from './icons/IncomeLogo'
 import styles from './Income.module.css'
 
 export const Income = () => {
+  const { income, loading, addIncome } = useIncomeDB()
   function resetDB() {
     indexedDB.deleteDatabase('BudgetAppDB')
     alert('Base de datos eliminada')
@@ -12,6 +15,19 @@ export const Income = () => {
         <IncomeLogo />
         <h2>Ingresos</h2>
       </div>
+      {loading && <div>Cargando ingresos...</div>}
+      {income.length === 0 && <div>Ingresa aquí tus fuentes de ingreso</div>}
+      <button
+        onClick={() => {
+          addIncome({
+            name: 'Inversiones',
+            amount: 220000,
+            discounts: []
+          })
+        }}
+      >
+        Agregar Ingreso <AddIcon />
+      </button>
       <button onClick={resetDB}>Eliminar DB</button>
     </section>
   )

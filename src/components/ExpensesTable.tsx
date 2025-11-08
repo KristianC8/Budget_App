@@ -11,7 +11,7 @@ import { useScrollBottom } from '../hooks/useScrollBottom'
 
 export const ExpensesTable = () => {
   const tableRef = useRef<HTMLDivElement | null>(null)
-  const { expenses, deleteExpense } = useExpensesDB()
+  const { expenses, loading, error, deleteExpense } = useExpensesDB()
   const { categories } = useCategoriesDB()
   const {
     editingCell,
@@ -32,6 +32,11 @@ export const ExpensesTable = () => {
           <MoneyLogo />
           <h2>Gastos</h2>
         </div>
+        {error.add && <span>{error.add}</span>}
+        {error.delete && <span>{error.delete}</span>}
+        {error.update && <span>{error.update}</span>}
+        {error.read && <span>{error.read}</span>}
+        {loading && <div>Cargando gastos...</div>}
         <div className={styles.tableContainer} ref={tableRef}>
           {expenses.length === 0 && (
             <p className={styles.noResults}>Ingresa aquí tus gastos</p>
@@ -79,8 +84,8 @@ export const ExpensesTable = () => {
                             type='text'
                             inputMode='numeric'
                             className={styles.inputNumber}
-                            autoFocus // Foco automático al entrar al modo edición
-                            onBlur={handleBlur} // Sale del modo edición al perder foco
+                            autoFocus
+                            onBlur={handleBlur}
                             onKeyDown={(e) => {
                               handleKeyDown(
                                 e,

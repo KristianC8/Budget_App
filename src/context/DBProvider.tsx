@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { useIndexedDb } from '../hooks/useIndexedDB'
-import { DBContext } from './dbContext'
+import { DBContext } from './DBContext'
 import { dbService } from '../services/indexedDB.service'
 
 export const DBProvider = ({ children }: { children: ReactNode }) => {

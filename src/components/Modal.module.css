@@ -1,0 +1,93 @@
+.dialog {
+  position: relative;
+  width: 900px;
+  height: 80vh;
+  max-height: 80vh;
+  margin: auto;
+  border: solid 2px gray;
+  border-radius: 0.5rem;
+  padding: 1rem 2rem;
+  background-color: var(--background);
+  text-align: center;
+}
+
+.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s;
+}
+
+.dialog[open] {
+  animation: slideUp 0.3s ease-out;
+}
+
+.form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 0 5px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.incomeContainer {
+  /* background-color: aqua; */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+  height: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.formIncome {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.flex-H {
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+}
+
+.flex-V {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.sign {
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(25px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

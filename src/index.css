@@ -13,6 +13,7 @@
 
   /* --primary-color: #90c853;  */
   --primary-color: #2da3e8;
+  --background: #171717;
 }
 
 * {
@@ -89,24 +90,24 @@ label {
 }
 
 @font-face {
-  font-family: "CarterOne";
-  src: url("/fonts/CarterOne-Regular.ttf") format("truetype");
+  font-family: 'CarterOne';
+  src: url('/fonts/CarterOne-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Nunito";
-  src: url("/fonts/Nunito-VariableFont_wght.ttf") format("truetype");
+  font-family: 'Nunito';
+  src: url('/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
   font-weight: 200 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "NunitoItalic";
-  src: url("/fonts/Nunito-Italic-VariableFont_wght.ttf") format("truetype");
+  font-family: 'NunitoItalic';
+  src: url('/fonts/Nunito-Italic-VariableFont_wght.ttf') format('truetype');
   font-weight: 200 900;
   font-style: normal;
   font-display: swap;

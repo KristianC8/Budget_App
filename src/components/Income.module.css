@@ -3,6 +3,23 @@
   max-height: calc(50vh - 1.5rem - 20px);
 }
 
+.addIncome {
+  font-weight: 700;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  border: none;
+  background-color: var(--primary-color);
+  padding: 0.25rem;
+  cursor: pointer;
+}
+
+.noResults {
+  text-align: left;
+  font-weight: bold;
+  font-size: medium;
+}
+
 .flexHC {
   display: flex;
   justify-content: center;

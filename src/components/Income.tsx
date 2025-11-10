@@ -24,7 +24,11 @@ export const Income = () => {
         <h2>Ingresos</h2>
       </div>
       {loading && <div>Cargando ingresos...</div>}
-      {income.length === 0 && <div>Ingresa aquí tus fuentes de ingreso</div>}
+      {income.length === 0 && (
+        <div className={styles.noResults}>
+          Ingresa aquí tus fuentes de ingreso
+        </div>
+      )}
       <ul>
         {income &&
           income.map((income) => (
@@ -35,7 +39,7 @@ export const Income = () => {
             </li>
           ))}
       </ul>
-      <button onClick={openModal}>
+      <button className={styles.addIncome} onClick={openModal}>
         Agregar Ingreso <AddIcon />
       </button>
       <button onClick={resetDB}>Eliminar DB</button>

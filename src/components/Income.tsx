@@ -39,7 +39,7 @@ export const Income = () => {
             </li>
           ))}
       </ul>
-      <button className={styles.addIncome} onClick={openModal}>
+      <button className='buttons' onClick={openModal}>
         Agregar Ingreso <AddIcon />
       </button>
       <button onClick={resetDB}>Eliminar DB</button>

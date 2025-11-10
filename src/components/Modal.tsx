@@ -1,3 +1,4 @@
+import AddIncomeLogo from './icons/AddIncomeLogo'
 import styles from './Modal.module.css'
 
 interface modalProps {
@@ -9,7 +10,10 @@ const Modal = ({ dialogRef }: modalProps) => {
     <dialog ref={dialogRef} className={styles.dialog}>
       <form method='dialog' className={styles.form}>
         <header>
-          <h2>Agregar fuente de Ingreso</h2>
+          <div className={styles.title}>
+            <AddIncomeLogo />
+            <h2>Agregar fuente de Ingreso</h2>
+          </div>
           <button aria-label='cerrar' className={styles.close}>
             ✖
           </button>

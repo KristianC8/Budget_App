@@ -14,6 +14,12 @@
   /* --primary-color: #90c853;  */
   --primary-color: #2da3e8;
   --background: #171717;
+  --gradient-back: linear-gradient(
+    180deg,
+    rgba(45, 163, 232, 1) 0%,
+    rgba(29, 147, 218, 1) 50%,
+    rgba(19, 67, 103, 1) 100%
+  );
 }
 
 * {
@@ -87,6 +93,24 @@ label {
   border: solid 2px gray;
   border-radius: 0.5rem;
   padding: 1rem;
+}
+
+.buttons {
+  font-weight: 700;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  border: none;
+  border-radius: 0.25rem;
+  background-color: var(--primary-color);
+  background: linear-gradient(
+    180deg,
+    rgba(45, 163, 232, 1) 0%,
+    rgba(29, 147, 218, 1) 50%,
+    rgba(19, 67, 103, 1) 100%
+  );
+  padding: 0.25rem;
+  cursor: pointer;
 }
 
 @font-face {

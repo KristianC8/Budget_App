@@ -121,14 +121,14 @@ const Modal = ({ dialogRef }: modalProps) => {
                       <div>
                         <label>Descuento</label>
                         <input
-                          {...control.register(`discounts.${index}.name`)}
+                          {...register(`discounts.${index}.name`)}
                           placeholder='Ej: Salud'
                         />
                       </div>
                       <div>
                         <label>Monto</label>
                         <input
-                          {...control.register(`discounts.${index}.amount`)}
+                          {...register(`discounts.${index}.amount`)}
                           type='number'
                           placeholder='1000'
                         />

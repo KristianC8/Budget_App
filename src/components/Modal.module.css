@@ -59,7 +59,11 @@
 .formIncome {
   display: flex;
   gap: 1rem;
-  align-items: center;
+  align-items: end;
+}
+
+.discounts {
+  margin-bottom: 1rem;
 }
 
 .info {
@@ -79,10 +83,11 @@
 .button {
   height: 100%;
   padding: 0 0.5rem;
+  border: none;
 }
 
 .cancel {
-  font: NunitoItalic;
+  font-family: NunitoItalic;
 }
 
 .title {

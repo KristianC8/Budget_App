@@ -33,14 +33,19 @@ export const Income = () => {
         {income &&
           income.map((income) => (
             <li key={income.id}>
-              {income.name}: {income.amount}
+              {income.name}:{' '}
+              {income.amount -
+                income.discounts.reduce(
+                  (total, currentValue) => total + currentValue.amount,
+                  0
+                )}
               <button>edit</button>
               <button>delete</button>
             </li>
           ))}
       </ul>
       <button className='buttons' onClick={openModal}>
-        Agregar Ingreso <AddIcon />
+        Agregar <AddIcon />
       </button>
       <button onClick={resetDB}>Eliminar DB</button>
       <Modal dialogRef={modalAddIncomeRef} />

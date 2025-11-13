@@ -43,15 +43,6 @@
   font-size: small;
 }
 
-.button {
-  height: 100%;
-  display: grid;
-  place-items: center;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-}
-
 .select {
   font-family: NunitoItalic;
 }

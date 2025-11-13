@@ -1,9 +1,9 @@
-export const AddIcon = () => {
+export const AddIcon = ({ h = '24', w = '24' }: { h?: string; w?: string }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      width='32'
-      height='32'
+      width={w}
+      height={h}
       viewBox='0 0 24 24'
     >
       <g fill='currentColor' fillRule='evenodd' clipRule='evenodd'>

@@ -88,8 +88,8 @@ export const AddExpenseForm = memo(() => {
             ))}
         </select>
       </div>
-      <button title='Agregar' className={styles.button} type='submit'>
-        <AddIcon />
+      <button title='Agregar' className='buttons' type='submit'>
+        Agregar <AddIcon />
       </button>
     </form>
   )

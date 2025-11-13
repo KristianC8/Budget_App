@@ -4,6 +4,9 @@ import type { Income } from '../types/dataBase'
 import { useForm, useFieldArray, type SubmitHandler } from 'react-hook-form'
 import InfoIcon from './icons/InfoIcon'
 import { helpNumericKeyDown } from '../helpers/helpNumericKeyDown'
+import { AddIcon } from './icons/AddIcon'
+import { TrashIcon } from './icons/TrashIcon'
+import { useIncomeDB } from '../hooks/useIncomeDB'
 
 interface modalProps {
   dialogRef: React.RefObject<HTMLDialogElement | null>
@@ -25,9 +28,12 @@ const Modal = ({ dialogRef }: modalProps) => {
     name: 'discounts'
   })
 
+  const { addIncome } = useIncomeDB()
+
   const onSubmit: SubmitHandler<Income> = (data) => {
     console.log(data)
     console.log(data.discounts)
+    addIncome(data)
     reset()
     dialogRef.current?.close()
   }
@@ -73,6 +79,7 @@ const Modal = ({ dialogRef }: modalProps) => {
                 type='text'
                 name='name'
                 id='name'
+                inputMode='text'
                 autoComplete='off'
                 maxLength={20}
                 autoFocus
@@ -92,6 +99,7 @@ const Modal = ({ dialogRef }: modalProps) => {
                   type='text'
                   name='amount'
                   id='amount'
+                  inputMode='numeric'
                   onKeyDown={(e) => {
                     helpNumericKeyDown(e)
                   }}
@@ -108,44 +116,64 @@ const Modal = ({ dialogRef }: modalProps) => {
           <div>
             {fields.length === 0 ? (
               <div>
-                <p>No hay descuentos agregados</p>
-                <button type='button' onClick={addDiscount}>
-                  Agregar primer descuento
+                <button type='button' className='buttons' onClick={addDiscount}>
+                  Descuento <AddIcon />
                 </button>
               </div>
             ) : (
               <>
-                {fields.map((field, index) => (
-                  <div key={field.id}>
-                    <div>
+                <div className={styles.discounts}>
+                  {fields.map((field, index) => (
+                    <div key={field.id} className={styles.formIncome}>
                       <div>
                         <label>Descuento</label>
                         <input
-                          {...register(`discounts.${index}.name`)}
-                          placeholder='Ej: Salud'
+                          {...register(`discounts.${index}.name`, {
+                            required: true,
+                            setValueAs: (value) => value.trim()
+                          })}
+                          placeholder='Ej: Pensión'
+                          inputMode='text'
+                          maxLength={20}
+                          autoComplete='off'
                         />
                       </div>
                       <div>
                         <label>Monto</label>
-                        <input
-                          {...register(`discounts.${index}.amount`)}
-                          type='number'
-                          placeholder='1000'
-                        />
+                        <div className={styles['flex-H']}>
+                          <span className={styles.sign}>$</span>
+                          <input
+                            {...register(`discounts.${index}.amount`, {
+                              required: true,
+                              min: 1,
+                              max: 99999999999999,
+                              valueAsNumber: true
+                            })}
+                            onKeyDown={(e) => {
+                              helpNumericKeyDown(e)
+                            }}
+                            type='text'
+                            inputMode='numeric'
+                            autoComplete='off'
+                            maxLength={14}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <button
-                      type='button'
-                      onClick={() => remove(index)}
-                      title='Eliminar descuento'
-                    >
-                      Borrar
-                    </button>
-                  </div>
-                ))}
 
-                <button type='button' onClick={addDiscount}>
-                  Agregar otro descuento
+                      <button
+                        type='button'
+                        className='buttons'
+                        onClick={() => remove(index)}
+                        title='Eliminar descuento'
+                      >
+                        Borrar <TrashIcon w='20' h='20' />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+
+                <button type='button' className='buttons' onClick={addDiscount}>
+                  Otro <AddIcon />
                 </button>
               </>
             )}
@@ -158,8 +186,8 @@ const Modal = ({ dialogRef }: modalProps) => {
           >
             Cancelar
           </button>
-          <button className={`${styles.button} buttons`} type='submit'>
-            Agregar
+          <button className='buttons' type='submit'>
+            Agregar <AddIcon />
           </button>
         </footer>
       </form>

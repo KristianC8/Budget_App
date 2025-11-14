@@ -1,0 +1,6 @@
+.error {
+  position: absolute;
+  top: -20px;
+  font-family: NunitoItalic;
+  color: #e74c5c;
+}

@@ -7,14 +7,13 @@ import { helpNumericKeyDown } from '../helpers/helpNumericKeyDown'
 import { AddIcon } from './icons/AddIcon'
 import { TrashIcon } from './icons/TrashIcon'
 import { useIncomeDB } from '../hooks/useIncomeDB'
+import AddIncomeValidate from './AddIncomeValidate'
 
 interface modalProps {
   dialogRef: React.RefObject<HTMLDialogElement | null>
 }
 
 const Modal = ({ dialogRef }: modalProps) => {
-  console.log('render modal')
-
   const { register, control, handleSubmit, reset } = useForm<Income>({
     defaultValues: {
       name: undefined,
@@ -31,8 +30,6 @@ const Modal = ({ dialogRef }: modalProps) => {
   const { addIncome } = useIncomeDB()
 
   const onSubmit: SubmitHandler<Income> = (data) => {
-    console.log(data)
-    console.log(data.discounts)
     addIncome(data)
     reset()
     dialogRef.current?.close()
@@ -41,8 +38,6 @@ const Modal = ({ dialogRef }: modalProps) => {
   const addDiscount = () => {
     append({ name: '', amount: 0 })
   }
-
-  // const currentDiscounts = watch('discounts')
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -186,9 +181,7 @@ const Modal = ({ dialogRef }: modalProps) => {
           >
             Cancelar
           </button>
-          <button className='buttons' type='submit'>
-            Agregar <AddIcon />
-          </button>
+          <AddIncomeValidate control={control} />
         </footer>
       </form>
     </dialog>

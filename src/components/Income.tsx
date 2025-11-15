@@ -4,9 +4,11 @@ import { IncomeLogo } from './icons/IncomeLogo'
 import styles from './Income.module.css'
 import { useRef } from 'react'
 import Modal from './Modal'
+import { DeleteIcon } from './icons/DeleteIcon'
+import { EditIcon } from './icons/EditIcon'
 
 export const Income = () => {
-  const { income, loading } = useIncomeDB()
+  const { income, loading, deleteIncome } = useIncomeDB()
   const modalAddIncomeRef = useRef<HTMLDialogElement>(null)
   const openModal = () => {
     if (modalAddIncomeRef.current) {
@@ -29,18 +31,32 @@ export const Income = () => {
           Ingresa aquí tus fuentes de ingreso
         </div>
       )}
-      <ul>
+      <ul className={styles.list}>
         {income &&
           income.map((income) => (
             <li key={income.id}>
-              {income.name}:{' '}
-              {income.amount -
-                income.discounts.reduce(
-                  (total, currentValue) => total + currentValue.amount,
-                  0
-                )}
-              <button>edit</button>
-              <button>delete</button>
+              <div>
+                {<span className={styles.sign}>$ </span>}
+                {income.amount -
+                  income.discounts.reduce(
+                    (total, currentValue) => total + currentValue.amount,
+                    0
+                  )}{' '}
+                {income.name}
+              </div>
+              <div className={styles.flexHC}>
+                <button className={styles.button}>
+                  <EditIcon />
+                </button>
+                <button
+                  onClick={() => {
+                    deleteIncome(income.id)
+                  }}
+                  className={styles.button}
+                >
+                  <DeleteIcon />
+                </button>
+              </div>
             </li>
           ))}
       </ul>

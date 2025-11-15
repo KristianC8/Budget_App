@@ -66,11 +66,38 @@ export const IncomeProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [])
 
+  const deleteIncome = useCallback(
+    async (id: number) => {
+      // Guardar tarea eliminada para rollback
+      const deletedIncome = income.find((inc) => inc.id === id)
+
+      // 1. Actualizar UI INMEDIATAMENTE
+      setIncome((prev) => prev.filter((inc) => inc.id !== id))
+
+      try {
+        // 2. Eliminar de DB en background
+        await incomeRepository.deleteIncome(id)
+        setError((prev) => ({ ...prev, delete: null }))
+      } catch (error) {
+        // 3. ROLLBACK si falla
+        if (deletedIncome) {
+          setIncome((prev) => [...prev, deletedIncome])
+        }
+        setError((prev) => ({
+          ...prev,
+          delete: `Error deleting Income: ${error}`
+        }))
+      }
+    },
+    [income]
+  )
+
   const value: IncomeContextType = {
     income,
     loading,
     error,
-    addIncome
+    addIncome,
+    deleteIncome
   }
 
   return (

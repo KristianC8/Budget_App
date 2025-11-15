@@ -46,7 +46,13 @@ const Modal = ({ dialogRef }: modalProps) => {
   }
 
   return (
-    <dialog ref={dialogRef} className={styles.dialog}>
+    <dialog
+      ref={dialogRef}
+      className={styles.dialog}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') return
+      }}
+    >
       <header className={styles.header}>
         <div className={styles.title}>
           <AddIncomeLogo />

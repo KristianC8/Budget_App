@@ -15,3 +15,38 @@
   justify-content: center;
   gap: 0.5rem;
 }
+
+.list {
+  list-style: none;
+  height: calc(100% - 58px);
+  overflow-y: auto;
+
+  & li {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 1px gray;
+    padding: 0.25rem 0;
+    transition: ease 0.3s;
+  }
+
+  & li:hover {
+    border-bottom: solid 1px var(--primary-color);
+  }
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.2rem;
+  width: 1.2rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--primary-color);
+}
+
+.sign {
+  font-weight: bold;
+  color: var(--primary-color);
+}

@@ -7,7 +7,7 @@
   text-align: left;
   font-weight: bold;
   font-size: medium;
-  margin-bottom: 1rem;
+  height: calc(100% - 58px);
 }
 
 .flexHC {
@@ -18,8 +18,9 @@
 
 .list {
   list-style: none;
-  height: calc(100% - 58px);
+  height: calc(100% - 74px);
   overflow-y: auto;
+  margin-bottom: 1rem;
 
   & li {
     display: flex;

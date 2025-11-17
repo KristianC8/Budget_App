@@ -8,29 +8,42 @@ import { AddIcon } from './icons/AddIcon'
 import { TrashIcon } from './icons/TrashIcon'
 import { useIncomeDB } from '../hooks/useIncomeDB'
 import AddIncomeValidate from './AddIncomeValidate'
+import { useEffect } from 'react'
 
 interface modalProps {
   dialogRef: React.RefObject<HTMLDialogElement | null>
+  initialValues?: Income
+  editID?: number
 }
 
-const Modal = ({ dialogRef }: modalProps) => {
-  const { register, control, handleSubmit, reset } = useForm<Income>({
-    defaultValues: {
-      name: undefined,
-      amount: undefined,
-      discounts: []
+const Modal = ({ dialogRef, initialValues, editID = 0 }: modalProps) => {
+  const { register, control, handleSubmit, reset } = useForm<Income>()
+
+  useEffect(() => {
+    if (initialValues) {
+      reset(initialValues) // Actualiza el formulario con los nuevos valores
+    } else {
+      reset({
+        name: undefined,
+        amount: undefined,
+        discounts: []
+      })
     }
-  })
+  }, [initialValues, reset])
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'discounts'
   })
 
-  const { addIncome } = useIncomeDB()
+  const { addIncome, updateIncome, error } = useIncomeDB()
 
   const onSubmit: SubmitHandler<Income> = (data) => {
-    addIncome(data)
+    if (initialValues) {
+      updateIncome(editID, data)
+    } else {
+      addIncome(data)
+    }
     reset()
     dialogRef.current?.close()
   }
@@ -56,7 +69,7 @@ const Modal = ({ dialogRef }: modalProps) => {
       <header className={styles.header}>
         <div className={styles.title}>
           <AddIncomeLogo />
-          <h2>Agregar fuente de Ingreso</h2>
+          <h2>{initialValues ? 'Editar' : 'Agregar'} fuente de Ingreso</h2>
         </div>
 
         <button
@@ -113,6 +126,7 @@ const Modal = ({ dialogRef }: modalProps) => {
           <p className={styles.info}>
             Deseas agregar un descuento
             <InfoIcon h={'15'} w={'15'} />
+            {error && <span>{error.add}</span>}
           </p>
           <div>
             {fields.length === 0 ? (
@@ -187,7 +201,10 @@ const Modal = ({ dialogRef }: modalProps) => {
           >
             Cancelar
           </button>
-          <AddIncomeValidate control={control} />
+          <AddIncomeValidate
+            control={control}
+            title={initialValues ? 'Editar' : 'Agregar'}
+          />
         </footer>
       </form>
     </dialog>

@@ -18,10 +18,9 @@ export class IncomeRepository {
 
   async updateIncome(
     id: number,
-    field: string,
-    update: number | string
+    update: Partial<Omit<Income, 'id'>>
   ): Promise<number> {
-    return dbService.update(this.storeName, id, field, update)
+    return dbService.update(this.storeName, id, undefined, update)
   }
 
   async updateDiscount(

@@ -6,6 +6,10 @@ export interface IncomeContextType {
   loading: boolean
   error: Errors
   addIncome: (income: Omit<Income, 'id'>) => Promise<number | undefined>
+  updateIncome: (
+    id: number,
+    update: Partial<Omit<Income, 'id'>>
+  ) => Promise<void>
   deleteIncome: (id: number) => Promise<void>
 }
 

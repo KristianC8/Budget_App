@@ -2,18 +2,27 @@ import { useIncomeDB } from '../hooks/useIncomeDB'
 import { AddIcon } from './icons/AddIcon'
 import { IncomeLogo } from './icons/IncomeLogo'
 import styles from './Income.module.css'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
+import type { Income as IncomeType } from '../types/dataBase'
 import Modal from './Modal'
 import { DeleteIcon } from './icons/DeleteIcon'
 import { EditIcon } from './icons/EditIcon'
 
 export const Income = () => {
   const { income, loading, deleteIncome } = useIncomeDB()
+  const [incomeToEdit, setIncomeToEdit] = useState<IncomeType | undefined>(
+    undefined
+  )
   const modalAddIncomeRef = useRef<HTMLDialogElement>(null)
-  const openModal = () => {
+  const openAddModal = () => {
     if (modalAddIncomeRef.current) {
       modalAddIncomeRef.current.showModal()
     }
+  }
+  const modalEditIncomeRef = useRef<HTMLDialogElement>(null)
+  const handleEdit = (income: IncomeType) => {
+    setIncomeToEdit(income) // Guardas el item a editar
+    modalEditIncomeRef.current?.showModal() // Abres la modal
   }
   function resetDB() {
     indexedDB.deleteDatabase('BudgetAppDB')
@@ -31,9 +40,9 @@ export const Income = () => {
           Ingresa aquí tus fuentes de ingreso
         </div>
       )}
-      <ul className={styles.list}>
-        {income &&
-          income.map((income) => (
+      {income.length > 0 && (
+        <ul className={styles.list}>
+          {income.map((income) => (
             <li key={income.id}>
               <div>
                 {<span className={styles.sign}>$ </span>}
@@ -45,7 +54,12 @@ export const Income = () => {
                 {income.name}
               </div>
               <div className={styles.flexHC}>
-                <button className={styles.button}>
+                <button
+                  className={styles.button}
+                  onClick={() => {
+                    handleEdit(income)
+                  }}
+                >
                   <EditIcon />
                 </button>
                 <button
@@ -59,12 +73,18 @@ export const Income = () => {
               </div>
             </li>
           ))}
-      </ul>
-      <button className='buttons' onClick={openModal}>
+        </ul>
+      )}
+      <button className='buttons' onClick={openAddModal}>
         Agregar <AddIcon />
       </button>
       <button onClick={resetDB}>Eliminar DB</button>
       <Modal dialogRef={modalAddIncomeRef} />
+      <Modal
+        dialogRef={modalEditIncomeRef}
+        initialValues={incomeToEdit}
+        editID={incomeToEdit?.id}
+      />
     </section>
   )
 }

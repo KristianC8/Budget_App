@@ -92,11 +92,47 @@ export const IncomeProvider = ({ children }: { children: ReactNode }) => {
     [income]
   )
 
+  // Actualizar ///////////////////////////////////////////////////////////////////////////////////
+  const updateIncome = useCallback(
+    async (id: number, update: Partial<Omit<Income, 'id'>>) => {
+      // Guardar estado anterior para rollback
+      const previousIncome = income
+
+      // 1. Actualizar UI INMEDIATAMENTE
+      setIncome((prev) =>
+        prev.map((incomeItem) =>
+          incomeItem.id === id
+            ? {
+                ...incomeItem,
+                ...update,
+                updatedAt: new Date().toISOString()
+              }
+            : incomeItem
+        )
+      )
+
+      try {
+        // 2. Sincronizar con DB en background
+        await incomeRepository.updateIncome(id, update)
+        setError((prev) => ({ ...prev, update: null }))
+      } catch (error) {
+        // 3. ROLLBACK si falla
+        setIncome(previousIncome)
+        setError((prev) => ({
+          ...prev,
+          update: `Error updating income: ${error}`
+        }))
+      }
+    },
+    [income]
+  )
+
   const value: IncomeContextType = {
     income,
     loading,
     error,
     addIncome,
+    updateIncome,
     deleteIncome
   }
 

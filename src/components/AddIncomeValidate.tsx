@@ -4,7 +4,13 @@ import { useMemo } from 'react'
 import { AddIcon } from './icons/AddIcon'
 import styles from './AddIncomeValidate.module.css'
 
-const AddIncomeValidate = ({ control }: { control: Control<Income> }) => {
+const AddIncomeValidate = ({
+  control,
+  title
+}: {
+  control: Control<Income>
+  title: string
+}) => {
   const currentDiscounts = useWatch({
     control,
     name: 'discounts',
@@ -31,7 +37,7 @@ const AddIncomeValidate = ({ control }: { control: Control<Income> }) => {
         </span>
       )}
       <button className='buttons' type='submit' disabled={isValidTotal}>
-        Agregar <AddIcon />
+        {title} <AddIcon />
       </button>
     </>
   )

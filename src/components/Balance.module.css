@@ -1,4 +1,6 @@
 .container {
+  display: grid;
+  place-items: center;
   min-height: calc(50vh - 1.5rem - 20px);
   max-height: calc(50vh - 1.5rem - 20px);
 }
@@ -7,4 +9,42 @@
   display: flex;
   justify-content: center;
   gap: 0.5rem;
+}
+
+.balanceSection {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 900;
+}
+.IncExp {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 1.2rem;
+}
+.incomeSection {
+}
+.expensesSection {
+}
+
+.labels {
+  color: var(--primary-color);
+  font-size: large;
+  font-family: NunitoItalic;
+  font-weight: 700;
+}
+
+.sign {
+  color: var(--primary-color);
+  font-weight: 900;
+}
+
+.high {
+  color: #2ec4b6;
+}
+.medium {
+  color: #f1f1f1;
+}
+.low {
+  color: #ef476f;
 }

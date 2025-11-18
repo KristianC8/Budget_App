@@ -4,6 +4,7 @@ import type { Expense, Errors } from '../types/dataBase'
 import type { ExpensesContextType } from './ExpensesContext'
 import { expensesRepository } from '../repositories/expenses.repository'
 import { ExpensesContext } from './ExpensesContext'
+import { useMemo } from 'react'
 
 export const ExpensesProvider = ({ children }: { children: ReactNode }) => {
   const [expenses, setExpenses] = useState<Expense[]>([])
@@ -129,10 +130,17 @@ export const ExpensesProvider = ({ children }: { children: ReactNode }) => {
     [expenses]
   )
 
+  // Total Gastos ///////////////////////////////////////////////////////////////////
+  const totalExpenses = useMemo(
+    () => expenses.reduce((total, expense) => total + expense.amount, 0),
+    [expenses]
+  )
+
   const value: ExpensesContextType = {
     expenses,
     loading,
     error,
+    totalExpenses,
     addExpense,
     deleteExpense,
     updateExpense

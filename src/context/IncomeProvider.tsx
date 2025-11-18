@@ -1,4 +1,10 @@
-import { useEffect, useState, useCallback, type ReactNode } from 'react'
+import {
+  useEffect,
+  useState,
+  useCallback,
+  useMemo,
+  type ReactNode
+} from 'react'
 import type { IncomeContextType } from './IncomeContext'
 import type { Income, Errors } from '../types/dataBase'
 import { IncomeContext } from './IncomeContext'
@@ -127,10 +133,22 @@ export const IncomeProvider = ({ children }: { children: ReactNode }) => {
     [income]
   )
 
+  // Total Ingresos //////////////////////////////////////////////////////////////////////////
+  const netIncome = useMemo(() => {
+    return income.reduce((total, incomeItem) => {
+      const discountsTotal = incomeItem.discounts.reduce(
+        (sum, discount) => sum + discount.amount,
+        0
+      )
+      return total + incomeItem.amount - discountsTotal
+    }, 0)
+  }, [income])
+
   const value: IncomeContextType = {
     income,
     loading,
     error,
+    netIncome,
     addIncome,
     updateIncome,
     deleteIncome

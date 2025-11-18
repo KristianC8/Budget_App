@@ -5,6 +5,7 @@ export interface ExpensesContextType {
   expenses: Expense[]
   loading: boolean
   error: Errors
+  totalExpenses: number
   addExpense: (expense: Omit<Expense, 'id'>) => Promise<number | undefined>
   updateExpense: (
     id: number,

@@ -5,6 +5,7 @@ export interface IncomeContextType {
   income: Income[]
   loading: boolean
   error: Errors
+  netIncome: number
   addIncome: (income: Omit<Income, 'id'>) => Promise<number | undefined>
   updateIncome: (
     id: number,

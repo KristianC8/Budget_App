@@ -5,6 +5,7 @@ import type { ExpensesContextType } from './ExpensesContext'
 import { expensesRepository } from '../repositories/expenses.repository'
 import { ExpensesContext } from './ExpensesContext'
 import { useMemo } from 'react'
+import { formatCurrencyParts } from '../utils/Formatter'
 
 export const ExpensesProvider = ({ children }: { children: ReactNode }) => {
   const [expenses, setExpenses] = useState<Expense[]>([])
@@ -136,11 +137,22 @@ export const ExpensesProvider = ({ children }: { children: ReactNode }) => {
     [expenses]
   )
 
+  //Formatear Gastos ///////////////////////////////////////////////////////////////////
+  const formatExpenses = useMemo(() => {
+    return expenses.map((expense) => {
+      return {
+        ...expense,
+        amount: formatCurrencyParts(expense.amount)
+      }
+    })
+  }, [expenses])
+
   const value: ExpensesContextType = {
     expenses,
     loading,
     error,
     totalExpenses,
+    formatExpenses,
     addExpense,
     deleteExpense,
     updateExpense

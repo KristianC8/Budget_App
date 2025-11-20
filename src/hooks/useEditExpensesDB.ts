@@ -37,19 +37,48 @@ export const useEditExpenseDB = () => {
     setEditingCell({ rowId: null, field: null })
   }
 
+  // const handleKeyDown = (
+  //   e: React.KeyboardEvent<HTMLInputElement>,
+  //   rowId: number,
+  //   field: string,
+  //   actual: number | string
+  // ) => {
+  //   helpNumericKeyDown(e)
+  //   if (e.key === 'Enter') {
+  //     let value: number | string = e.currentTarget.value
+
+  //     if (field === 'amount') {
+  //       const cleanVal = e.currentTarget.value.replace(/[^0-9]/g, '')
+  //       const cleanActual =
+  //         typeof actual === 'string'
+  //           ? Number(actual.replace(/[^0-9]/g, ''))
+  //           : actual
+
+  //       value =
+  //         cleanVal === '' || (cleanVal.length > 1 && cleanVal.startsWith('0'))
+  //           ? cleanActual
+  //           : Number(cleanVal)
+  //     }
+
+  //     updateExpense(rowId, field, value)
+  //     e.preventDefault()
+  //     e.currentTarget.blur()
+  //   }
+  // }
   const handleKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
     rowId: number,
     field: string,
-    actual: number
+    actual: string
   ) => {
     helpNumericKeyDown(e)
     if (e.key === 'Enter') {
+      const numbers = e.currentTarget.value.replace(/[^0-9]/g, '')
       const value =
         field === 'amount'
-          ? e.currentTarget.value[0] === '0' || e.currentTarget.value === ''
-            ? actual
-            : Number(e.currentTarget.value)
+          ? e.currentTarget.value === '0' || e.currentTarget.value === ''
+            ? Number(actual.replace(/[^0-9]/g, ''))
+            : parseInt(numbers, 10) || 0
           : e.currentTarget.value
       updateExpense(rowId, field, value)
       e.preventDefault()

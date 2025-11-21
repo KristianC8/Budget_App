@@ -17,14 +17,14 @@ export const useEditExpenseDB = () => {
     field: null
   })
 
-  const { register, setValue } = useForm()
+  const { control, register, setValue } = useForm()
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLSelectElement>,
     rowId: number,
     field: string
   ) => {
-    const value = field === 'amount' ? Number(e.target.value) : e.target.value
+    const value = e.target.value
     updateExpense(rowId, field, value)
     e.target.blur()
   }
@@ -69,7 +69,7 @@ export const useEditExpenseDB = () => {
     e: React.KeyboardEvent<HTMLInputElement>,
     rowId: number,
     field: string,
-    actual: string
+    actual: number
   ) => {
     helpNumericKeyDown(e)
     if (e.key === 'Enter') {
@@ -77,7 +77,7 @@ export const useEditExpenseDB = () => {
       const value =
         field === 'amount'
           ? e.currentTarget.value === '0' || e.currentTarget.value === ''
-            ? Number(actual.replace(/[^0-9]/g, ''))
+            ? actual
             : parseInt(numbers, 10) || 0
           : e.currentTarget.value
       updateExpense(rowId, field, value)
@@ -88,6 +88,7 @@ export const useEditExpenseDB = () => {
 
   return {
     editingCell,
+    control,
     register,
     setValue,
     handleChange,

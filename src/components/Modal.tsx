@@ -9,6 +9,8 @@ import { TrashIcon } from './icons/TrashIcon'
 import { useIncomeDB } from '../hooks/useIncomeDB'
 import AddIncomeValidate from './AddIncomeValidate'
 import { useEffect } from 'react'
+import { formatCurrencyParts } from '../utils/Formatter'
+import { InputCurrency } from './InputCurrency'
 
 interface modalProps {
   dialogRef: React.RefObject<HTMLDialogElement | null>
@@ -102,23 +104,15 @@ const Modal = ({ dialogRef, initialValues, editID = 0 }: modalProps) => {
             <div className={styles['flex-V']}>
               <label htmlFor='amount'>Monto:</label>
               <div className={styles['flex-H']}>
-                <span className={styles.sign}>$</span>
-                <input
-                  {...register('amount', {
-                    required: true,
-                    min: 1,
-                    max: 99999999999999,
-                    valueAsNumber: true
-                  })}
-                  type='text'
+                <span className={styles.sign}>
+                  {formatCurrencyParts(1).symbol}
+                </span>
+                <InputCurrency
                   name='amount'
-                  id='amount'
-                  inputMode='numeric'
+                  control={control}
                   onKeyDown={(e) => {
                     helpNumericKeyDown(e)
                   }}
-                  autoComplete='off'
-                  maxLength={14}
                 />
               </div>
             </div>
@@ -141,7 +135,9 @@ const Modal = ({ dialogRef, initialValues, editID = 0 }: modalProps) => {
                   {fields.map((field, index) => (
                     <div key={field.id} className={styles.formIncome}>
                       <div>
-                        <label>Descuento</label>
+                        <label htmlFor={`discounts.${index}.name`}>
+                          Descuento
+                        </label>
                         <input
                           {...register(`discounts.${index}.name`, {
                             required: true,
@@ -154,23 +150,19 @@ const Modal = ({ dialogRef, initialValues, editID = 0 }: modalProps) => {
                         />
                       </div>
                       <div>
-                        <label>Monto</label>
+                        <label htmlFor={`discounts.${index}.amount`}>
+                          Monto
+                        </label>
                         <div className={styles['flex-H']}>
-                          <span className={styles.sign}>$</span>
-                          <input
-                            {...register(`discounts.${index}.amount`, {
-                              required: true,
-                              min: 1,
-                              max: 99999999999999,
-                              valueAsNumber: true
-                            })}
+                          <span className={styles.sign}>
+                            {formatCurrencyParts(1).symbol}
+                          </span>
+                          <InputCurrency
+                            name={`discounts.${index}.amount`}
+                            control={control}
                             onKeyDown={(e) => {
                               helpNumericKeyDown(e)
                             }}
-                            type='text'
-                            inputMode='numeric'
-                            autoComplete='off'
-                            maxLength={14}
                           />
                         </div>
                       </div>

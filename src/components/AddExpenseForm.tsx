@@ -5,27 +5,19 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 import { helpNumericKeyDown } from '../helpers/helpNumericKeyDown'
 import { useExpensesDB } from '../hooks/useExpensesDB'
 import { useCategoriesDB } from '../hooks/useCategoriesDB'
+import { formatCurrencyParts } from '../utils/Formatter'
+import { InputCurrency } from './InputCurrency'
 
 export const AddExpenseForm = memo(() => {
   const { addExpense } = useExpensesDB()
   const { categories } = useCategoriesDB()
-
-  // const CATEGORIES = {
-  //   mercado: 'Mercado',
-  //   transporte: 'Transporte',
-  //   medicamentos: 'Medicamentos',
-  //   otros: 'Otros'
-  // } as const
-
-  // // Tipo derivado automáticamente
-  // type Category = (typeof CATEGORIES)[keyof typeof CATEGORIES]
 
   interface IFormInput {
     amount: number
     category: string
   }
 
-  const { register, handleSubmit, reset } = useForm<IFormInput>({
+  const { control, register, handleSubmit, reset } = useForm<IFormInput>({
     defaultValues: {
       amount: undefined,
       category: ''
@@ -44,22 +36,14 @@ export const AddExpenseForm = memo(() => {
           Monto
         </label>
         <div className={styles['flex-h']}>
-          <span className={styles.sign}>$</span>
-          <input
-            type='text'
-            inputMode='numeric'
-            {...register('amount', {
-              required: 'El monto es requerido',
-              min: 1,
-              max: 999999999999,
-              valueAsNumber: true
-            })}
+          <span className={styles.sign}>{formatCurrencyParts(1).symbol}</span>
+          <InputCurrency
+            control={control}
+            name='amount'
+            autoFocus={false}
             onKeyDown={(e) => {
               helpNumericKeyDown(e)
             }}
-            id='amount'
-            autoComplete='off'
-            maxLength={12}
           />
         </div>
       </div>

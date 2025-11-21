@@ -3,6 +3,7 @@ import { type Control, useWatch } from 'react-hook-form'
 import { useMemo } from 'react'
 import { AddIcon } from './icons/AddIcon'
 import styles from './AddIncomeValidate.module.css'
+import { ParseCurrency } from '../utils/currencyFormated'
 
 const AddIncomeValidate = ({
   control,
@@ -24,10 +25,24 @@ const AddIncomeValidate = ({
   })
 
   const totalDiscounts = useMemo(() => {
-    return currentDiscounts.reduce((sum, item) => sum + (item.amount || 0), 0)
+    return currentDiscounts.reduce((sum, item) => {
+      const amount =
+        typeof item.amount === 'string'
+          ? ParseCurrency(item.amount)
+          : item.amount || 0
+      return sum + (isNaN(amount) ? 0 : amount)
+    }, 0)
   }, [currentDiscounts])
 
-  const isValidTotal = totalDiscounts >= currentIncome
+  const incomeValue =
+    typeof currentIncome === 'string'
+      ? ParseCurrency(currentIncome)
+      : currentIncome
+
+  const isValidTotal =
+    typeof incomeValue === 'number' &&
+    !isNaN(incomeValue) &&
+    totalDiscounts >= incomeValue
 
   return (
     <>

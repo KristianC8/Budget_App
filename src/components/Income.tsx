@@ -7,6 +7,7 @@ import type { Income as IncomeType } from '../types/dataBase'
 import Modal from './Modal'
 import { DeleteIcon } from './icons/DeleteIcon'
 import { EditIcon } from './icons/EditIcon'
+import { formatCurrencyParts } from '../utils/Formatter'
 
 export const Income = () => {
   const { income, loading, deleteIncome } = useIncomeDB()
@@ -28,6 +29,15 @@ export const Income = () => {
     indexedDB.deleteDatabase('BudgetAppDB')
     alert('Base de datos eliminada')
   }
+  const netIncome = (income: IncomeType) => {
+    return (
+      income.amount -
+      income.discounts.reduce(
+        (total, currentValue) => total + currentValue.amount,
+        0
+      )
+    )
+  }
   return (
     <section className={`sections ${styles.container}`}>
       <div className={styles.flexHC}>
@@ -45,12 +55,13 @@ export const Income = () => {
           {income.map((income) => (
             <li key={income.id}>
               <div>
-                {<span className={styles.sign}>$ </span>}
-                {income.amount -
-                  income.discounts.reduce(
-                    (total, currentValue) => total + currentValue.amount,
-                    0
-                  )}{' '}
+                {
+                  <span className={styles.sign}>
+                    {formatCurrencyParts(1).symbol}
+                  </span>
+                }{' '}
+                {formatCurrencyParts(netIncome(income)).value}
+                {' | '}
                 {income.name}
               </div>
               <div className={styles.flexHC}>

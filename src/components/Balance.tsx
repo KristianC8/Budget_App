@@ -21,7 +21,7 @@ export const Balance = () => {
         <h2>Saldo Disponible</h2>
       </div>
       <div className={styles.balanceSection}>
-        <span className={styles.sign}>{balance.symbol}</span>
+        <span className={styles.sign}>{balance.symbol}</span>{' '}
         <span
           className={`${availableBalance > netIncome * 0.5 ? styles.high : availableBalance < netIncome * 0.2 ? styles.low : styles.medium}`}
         >
@@ -30,13 +30,13 @@ export const Balance = () => {
       </div>
       <div className={styles.IncExp}>
         <div className={styles.incomeSection}>
-          <div className={styles.labels}>Ingresos:</div>
-          <span className={styles.sign}>{income.symbol}</span>
+          <div className={styles.labels}>Total Ingresos:</div>
+          <span className={styles.sign}>{income.symbol}</span>{' '}
           <span>{income.value}</span>
         </div>
         <div className={styles.expensesSection}>
-          <div className={styles.labels}>Gastos:</div>
-          <span className={styles.sign}>{expenses.symbol}</span>
+          <div className={styles.labels}>Total Gastos:</div>
+          <span className={styles.sign}>{expenses.symbol}</span>{' '}
           <span>{expenses.value}</span>
         </div>
       </div>

@@ -43,3 +43,8 @@
   text-decoration: none;
   color: inherit;
 }
+
+.nav {
+  display: flex;
+  gap: 0.5rem;
+}

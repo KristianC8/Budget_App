@@ -17,7 +17,8 @@
 @media (width >= 1000px) {
   .section {
     display: grid;
-    grid-template-columns: repeat(2, minmax(400px, 1fr));
+    /* grid-template-columns: repeat(2, minmax(400px, 1fr)); */
+    grid-template-columns: 1fr 2fr;
     gap: 1rem;
   }
 }

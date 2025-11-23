@@ -14,7 +14,10 @@ export const Header = () => {
           {location === '/config' ? 'Configuración' : 'Presupuesto'}
         </h1>
       </Link>
-      <nav>
+      <nav className={styles.nav}>
+        <Link href='/graph' className={styles.link}>
+          Gráfica
+        </Link>
         {location !== '/config' && (
           <Link href='/config' className={styles.link}>
             <SettingsIcon />

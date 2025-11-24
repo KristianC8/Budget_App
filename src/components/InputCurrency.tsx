@@ -17,6 +17,7 @@ interface InputCurrencyProps<T extends FieldValues> {
   maxLength?: number
   className?: string
   autoFocus?: boolean
+  placeholder?: string
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void
   rules?: RegisterOptions<T>
@@ -31,6 +32,7 @@ export const InputCurrency = <T extends FieldValues>({
   maxLength = 12,
   className,
   autoFocus = true,
+  placeholder,
   onBlur,
   onKeyDown,
   rules
@@ -120,6 +122,7 @@ export const InputCurrency = <T extends FieldValues>({
       className={className}
       autoFocus={autoFocus}
       name={field.name}
+      placeholder={placeholder}
     />
   )
 }

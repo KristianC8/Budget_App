@@ -15,12 +15,14 @@ export const AddExpenseForm = memo(() => {
   interface IFormInput {
     amount: number
     category: string
+    description: string
   }
 
   const { control, register, handleSubmit, reset } = useForm<IFormInput>({
     defaultValues: {
       amount: undefined,
-      category: ''
+      category: '',
+      description: ''
     }
   })
 
@@ -44,6 +46,7 @@ export const AddExpenseForm = memo(() => {
             onKeyDown={(e) => {
               helpNumericKeyDown(e)
             }}
+            placeholder='0'
           />
         </div>
       </div>
@@ -62,7 +65,7 @@ export const AddExpenseForm = memo(() => {
             <option value=''>Crea una categoría</option>
           )}
           <option value='' hidden>
-            Selecciona uno
+            Selecciona una
           </option>
           {categories.length > 0 &&
             categories.map((category) => (
@@ -71,6 +74,20 @@ export const AddExpenseForm = memo(() => {
               </option>
             ))}
         </select>
+      </div>
+      <div className={styles.inputContainer}>
+        <label className={styles.label} htmlFor='description'>
+          Descripción
+        </label>
+        <input
+          {...register('description', { required: true })}
+          id='description'
+          type='text'
+          className={styles.input}
+          placeholder='Breve descripción'
+          autoComplete='off'
+          maxLength={20}
+        />
       </div>
       <button title='Agregar' className='buttons' type='submit'>
         Agregar <AddIcon />

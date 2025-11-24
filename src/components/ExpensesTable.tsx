@@ -48,15 +48,17 @@ export const ExpensesTable = () => {
             <table className={styles.table}>
               <colgroup>
                 <col style={{ width: '5%' }} />
+                <col style={{ width: '20%' }} />
                 <col style={{ width: '30%' }} />
-                <col style={{ width: '55%' }} />
-                <col style={{ width: '10%' }} />
+                <col style={{ width: '40%' }} />
+                <col style={{ width: '5%' }} />
               </colgroup>
               <thead>
                 <tr>
                   <th className={styles.tHead}>No.</th>
                   <th className={styles.tHead}>Monto</th>
                   <th className={styles.tHead}>Categoría</th>
+                  <th className={styles.tHead}>Descripción</th>
                   {/* <th className={styles.tHead}>&nbsp;</th> */}
                   <th className={styles.tHead}>
                     <TrashIcon />
@@ -143,6 +145,7 @@ export const ExpensesTable = () => {
                           <>{expense.category}</>
                         )}
                       </td>
+                      <td className={styles.tData}>{expense.description}</td>
                       <td className={styles.tData}>
                         <div className={styles.flexSE}>
                           <button

@@ -7,6 +7,7 @@ export interface BaseEntity {
 export interface Expense extends BaseEntity {
   amount: number
   category: string
+  description: string
 }
 
 export interface Category extends BaseEntity {

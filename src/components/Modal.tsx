@@ -99,6 +99,7 @@ const Modal = ({ dialogRef, initialValues, editID = 0 }: modalProps) => {
                 autoComplete='off'
                 maxLength={20}
                 autoFocus
+                placeholder='Ej: Trabajo, Inversiones, etc'
               />
             </div>
             <div className={styles['flex-V']}>
@@ -113,6 +114,7 @@ const Modal = ({ dialogRef, initialValues, editID = 0 }: modalProps) => {
                   onKeyDown={(e) => {
                     helpNumericKeyDown(e)
                   }}
+                  placeholder='0'
                 />
               </div>
             </div>
@@ -163,6 +165,7 @@ const Modal = ({ dialogRef, initialValues, editID = 0 }: modalProps) => {
                             onKeyDown={(e) => {
                               helpNumericKeyDown(e)
                             }}
+                            placeholder='0'
                           />
                         </div>
                       </div>

@@ -37,6 +37,7 @@ export const AddCategoryForm = () => {
           id='category'
           autoComplete='off'
           maxLength={20}
+          placeholder='Nombre de la categoría'
         />
       </div>
 

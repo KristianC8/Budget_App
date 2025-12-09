@@ -37,6 +37,22 @@ export const useEditExpenseDB = () => {
     setEditingCell({ rowId: null, field: null })
   }
 
+  const handleKeyInput = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    rowId: number,
+    field: string,
+    actualValue: string
+  ) => {
+    if (e.key === 'Enter') {
+      const value =
+        e.currentTarget.value === '0' || e.currentTarget.value === ''
+          ? actualValue
+          : e.currentTarget.value.trim()
+      updateExpense(rowId, field, value)
+      e.currentTarget.blur()
+    }
+  }
+
   // const handleKeyDown = (
   //   e: React.KeyboardEvent<HTMLInputElement>,
   //   rowId: number,
@@ -94,6 +110,7 @@ export const useEditExpenseDB = () => {
     handleChange,
     handleDoubleClick,
     handleBlur,
-    handleKeyDown
+    handleKeyDown,
+    handleKeyInput
   }
 }

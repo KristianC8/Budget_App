@@ -105,6 +105,10 @@
   line-height: 1rem;
 }
 
+.inputText {
+  padding: 0;
+}
+
 .sign {
   font-weight: bold;
   color: var(--primary-color);

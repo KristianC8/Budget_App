@@ -52,17 +52,17 @@ export const Income = () => {
       )}
       {income.length > 0 && (
         <ul className={styles.list}>
-          {income.map((income) => (
+          {income.map((income, i) => (
             <li key={income.id}>
-              <div>
-                {
+              <div className={styles.incomeContainer}>
+                {`${i + 1}. `}
+                <div className={styles.income}>
+                  {`${income.name}: `}
                   <span className={styles.sign}>
                     {formatCurrencyParts(1).symbol}
-                  </span>
-                }{' '}
-                {formatCurrencyParts(netIncome(income)).value}
-                {' | '}
-                {income.name}
+                  </span>{' '}
+                  {formatCurrencyParts(netIncome(income)).value}
+                </div>
               </div>
               <div className={styles.flexHC}>
                 <button

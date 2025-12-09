@@ -24,6 +24,7 @@
 
   & li {
     display: flex;
+    gap: 0.5rem;
     justify-content: space-between;
     border-bottom: solid 1px gray;
     padding: 0.25rem 0;
@@ -50,4 +51,15 @@
 .sign {
   font-weight: bold;
   color: var(--primary-color);
+}
+
+.incomeContainer {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 85%;
+}
+
+.income {
+  overflow-y: auto;
+  white-space: nowrap;
 }

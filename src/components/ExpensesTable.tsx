@@ -23,7 +23,8 @@ export const ExpensesTable = () => {
     handleChange,
     handleDoubleClick,
     handleBlur,
-    handleKeyDown
+    handleKeyDown,
+    handleKeyInput
   } = useEditExpenseDB()
 
   useScrollBottom(tableRef, expenses)
@@ -145,7 +146,39 @@ export const ExpensesTable = () => {
                           <>{expense.category}</>
                         )}
                       </td>
-                      <td className={styles.tData}>{expense.description}</td>
+                      <td
+                        className={styles.tData}
+                        onDoubleClick={() => {
+                          handleDoubleClick(expense.id, 'description')
+                          setValue('description', expense['description'])
+                        }}
+                      >
+                        {editingCell.rowId === expense.id &&
+                        editingCell.field === 'description' ? (
+                          <input
+                            {...register('description', { required: true })}
+                            type='text'
+                            inputMode='text'
+                            autoComplete='off'
+                            maxLength={20}
+                            onBlur={handleBlur}
+                            id='description'
+                            autoFocus
+                            name='description'
+                            className={styles.inputText}
+                            onKeyDown={(e) => {
+                              handleKeyInput(
+                                e,
+                                expense.id,
+                                'description',
+                                expense.description
+                              )
+                            }}
+                          />
+                        ) : (
+                          <>{expense.description}</>
+                        )}
+                      </td>
                       <td className={styles.tData}>
                         <div className={styles.flexSE}>
                           <button

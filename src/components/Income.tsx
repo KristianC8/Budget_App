@@ -86,9 +86,11 @@ export const Income = () => {
           ))}
         </ul>
       )}
-      <button className='buttons' onClick={openAddModal}>
-        Agregar <AddIcon />
-      </button>
+      <div className={styles.footer}>
+        <button className='buttons' onClick={openAddModal}>
+          Agregar <AddIcon />
+        </button>
+      </div>
       <button onClick={resetDB}>Eliminar DB</button>
       <Modal dialogRef={modalAddIncomeRef} />
       <Modal

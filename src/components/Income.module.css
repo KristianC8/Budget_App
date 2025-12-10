@@ -63,3 +63,8 @@
   overflow-y: auto;
   white-space: nowrap;
 }
+
+.footer {
+  display: flex;
+  justify-content: end;
+}

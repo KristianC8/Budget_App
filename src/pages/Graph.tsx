@@ -6,6 +6,7 @@ export const Graph = () => {
   return (
     <>
       <Header />
+      <h2>Gráficos</h2>
     </>
   )
 }

@@ -1,0 +1,64 @@
+.pieSection {
+  /* display: grid;
+  place-items: center; */
+  text-align: center;
+  border: solid 2px gray;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  grid-row: span 2;
+}
+
+.pieChartContent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.pieChart {
+  width: 60%;
+  aspect-ratio: 1;
+}
+
+.legend {
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: solid thin gray;
+  border-radius: 0.5rem;
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.colorCategory {
+  height: 0.8rem;
+  width: 0.8rem;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.name {
+  font-size: small;
+  font-weight: 700;
+  color: #999;
+}
+
+.value {
+  font-size: small;
+  color: #d8d8d8;
+}

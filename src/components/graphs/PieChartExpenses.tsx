@@ -1,10 +1,10 @@
 import React from 'react'
+import styles from './PieChartExpenses.module.css'
 import {
   PieChart,
   Pie,
   Cell,
-  Tooltip,
-  ResponsiveContainer
+  Tooltip
   //   type PieLabelRenderProps
 } from 'recharts'
 
@@ -33,7 +33,7 @@ interface CustomLabelProps {
   percent?: number
 }
 
-const BudgetPieChart: React.FC = () => {
+export const PieChartExpenses: React.FC = () => {
   const CustomLabel = (props: CustomLabelProps) => {
     const { cx, cy, midAngle, innerRadius, outerRadius, percent } = props
 
@@ -76,61 +76,61 @@ const BudgetPieChart: React.FC = () => {
   const total = data.reduce((sum, item) => sum + item.value, 0)
   return (
     <>
-      <ResponsiveContainer width={500} height={500}>
-        <PieChart>
-          <Pie
-            data={data}
-            cx='50%'
-            cy='50%'
-            labelLine={false}
-            label={CustomLabel}
-            outerRadius={150}
-            innerRadius={100}
-            paddingAngle={2}
-            cornerRadius={2}
-            dataKey='value'
-            stroke='none'
-          >
-            {data.map((_, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-          <Tooltip
-            contentStyle={{
-              backgroundColor: '#181818',
-              border: '1px solid #ccc',
-              borderRadius: '8px',
-              color: '#fff'
-            }}
-          />
-        </PieChart>
-      </ResponsiveContainer>
-      <div className='flex flex-col gap-3'>
-        {data.map((item, index) => {
-          const percentage = ((item.value / total) * 100).toFixed(1)
-          return (
-            <div key={index} className='flex items-center gap-3'>
-              <div
-                className='w-4 h-4 rounded-full flex-shrink-0'
-                style={{ backgroundColor: COLORS[index % COLORS.length] }}
-              />
-              <div className='flex flex-col'>
-                <span className='text-sm font-semibold text-gray-800'>
-                  {item.name}
-                </span>
-                <span className='text-xs text-gray-500'>
-                  {item.value} ({percentage}%)
-                </span>
-              </div>
-            </div>
-          )
-        })}
-      </div>
+      <section className={styles.pieSection}>
+        <h2>Gastos por Categoría</h2>
+        <div className={styles.pieChartContent}>
+          <PieChart className={styles.pieChart} responsive>
+            <Pie
+              data={data}
+              cx='50%'
+              cy='50%'
+              labelLine={false}
+              label={CustomLabel}
+              outerRadius={'100%'}
+              innerRadius={'70%'}
+              paddingAngle={2}
+              cornerRadius={2}
+              dataKey='value'
+              stroke='none'
+            >
+              {data.map((_, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+            <Tooltip
+              contentStyle={{
+                backgroundColor: '#181818',
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+                color: '#fff'
+              }}
+            />
+          </PieChart>
+
+          <div className={styles.legend}>
+            {data.map((item, index) => {
+              const percentage = ((item.value / total) * 100).toFixed(1)
+              return (
+                <div key={index} className={styles.category}>
+                  <div
+                    className={styles.colorCategory}
+                    style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                  />
+                  <div className={styles.label}>
+                    <span className={styles.name}>{item.name}</span>
+                    <span className={styles.value}>
+                      {item.value} ({percentage}%)
+                    </span>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      </section>
     </>
   )
 }
-
-export default BudgetPieChart

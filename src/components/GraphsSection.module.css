@@ -1,0 +1,7 @@
+.sectionGraphs {
+  min-height: calc(100vh - 40px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 1rem;
+  gap: 1rem;
+}

@@ -13,6 +13,7 @@
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "react-hook-form": "^7.64.0",
+    "recharts": "^3.5.1",
     "wouter": "^3.7.1"
   },
   "devDependencies": {

@@ -31,6 +31,8 @@
   padding: 1rem;
   border: solid thin gray;
   border-radius: 0.5rem;
+  overflow-y: auto;
+  max-height: 300px;
 }
 
 .category {

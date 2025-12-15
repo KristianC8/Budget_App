@@ -7,21 +7,22 @@ import {
   Tooltip
   //   type PieLabelRenderProps
 } from 'recharts'
+import { useExpensesDB } from '../../hooks/useExpensesDB'
+import { useCategoriesDB } from '../../hooks/useCategoriesDB'
 
-type BudgetCategory = {
-  name: string
-  value: number
-}
+// type data = {
+//   name: string
+//   value: number
+// }
 
-const data: BudgetCategory[] = [
-  { name: 'Vivienda', value: 450 },
-  { name: 'Alimentación', value: 300 },
-  { name: 'Transporte', value: 120 },
-  { name: 'Entretenimiento', value: 80 },
-  { name: 'Ahorro', value: 200 }
-]
+//Example data
+// const data: data[] = [
+//   { name: 'Vivienda', value: 450 },
+//   { name: 'Alimentación', value: 300 }
+// ]
 
-const COLORS = ['#4F46E5', '#06B6D4', '#10B981', '#F59E0B', '#EF4444']
+// const COLORS = ['#4F46E5', '#06B6D4', '#10B981', '#F59E0B', '#EF4444']
+
 const RADIAN = Math.PI / 180
 
 interface CustomLabelProps {
@@ -34,6 +35,27 @@ interface CustomLabelProps {
 }
 
 export const PieChartExpenses: React.FC = () => {
+  const { expenses } = useExpensesDB()
+  const { categories } = useCategoriesDB()
+
+  const data = categories.map((category) => {
+    const expensesByCategory = expenses.filter(
+      (expense) => expense.category === category.name
+    )
+    return {
+      name: category.name,
+      value: expensesByCategory.reduce(
+        (sum, expense) => sum + expense.amount,
+        0
+      )
+    }
+  })
+
+  const COLORS = categories.map((_, index) => {
+    const hue = (index * 360) / categories.length
+    return `hsl(${hue}, 70%, 60%)`
+  })
+
   const CustomLabel = (props: CustomLabelProps) => {
     const { cx, cy, midAngle, innerRadius, outerRadius, percent } = props
 

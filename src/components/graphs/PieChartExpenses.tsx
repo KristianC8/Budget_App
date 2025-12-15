@@ -124,10 +124,19 @@ export const PieChartExpenses: React.FC = () => {
             </Pie>
             <Tooltip
               contentStyle={{
-                backgroundColor: '#181818',
-                border: '1px solid #ccc',
-                borderRadius: '8px',
-                color: '#fff'
+                backgroundColor: '#1f2937',
+                border: 'none',
+                borderRadius: '12px',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                padding: '12px'
+              }}
+              itemStyle={{
+                color: '#fff',
+                fontSize: '14px'
+              }}
+              labelStyle={{
+                color: '#e5e7eb',
+                fontWeight: 'bold'
               }}
             />
           </PieChart>

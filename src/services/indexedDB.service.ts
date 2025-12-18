@@ -252,6 +252,31 @@ class IndexedDBService {
     })
   }
 
+  // Obtener registros de los últimos 6 meses
+  async getByDateRange<T extends BaseEntity>(
+    storeName: string,
+    indexName: string,
+    startDate: Date,
+    endDate?: Date
+  ): Promise<T[]> {
+    if (!this.db) throw new Error('Database not initialized')
+
+    return new Promise((resolve, reject) => {
+      const transaction = this.db!.transaction([storeName], 'readonly')
+      const store = transaction.objectStore(storeName)
+      const index = store.index(indexName)
+
+      const range = endDate
+        ? IDBKeyRange.bound(startDate.toISOString(), endDate.toISOString())
+        : IDBKeyRange.lowerBound(startDate.toISOString())
+
+      const request = index.getAll(range)
+
+      request.onsuccess = () => resolve(request.result as T[])
+      request.onerror = () => reject(request.error)
+    })
+  }
+
   //Contar registros de un store
   async count(storeName: string): Promise<number> {
     if (!this.db) throw new Error('Database not initialized')

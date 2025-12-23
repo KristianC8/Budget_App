@@ -46,37 +46,26 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   const diferencia = ingresos - gastos
 
   return (
-    // <div className='bg-white px-4 py-3 rounded-lg shadow-xl border border-gray-200'>
     <div className={styles.tooltip}>
       <p>{label}</p>
 
       {payload.map((entry, index) => (
-        <div
-          key={index}
-          //   className='flex items-center justify-between gap-4 mb-1'
-          className={styles.tooltipItem}
-        >
-          {/* <span className='text-sm flex items-center gap-2'> */}
+        <div key={index} className={styles.tooltipItem}>
           <span className={styles.tooltipLabel}>
             <span
-              //   className='w-3 h-3 rounded-full'
               className={styles.tooltipCircle}
               style={{ backgroundColor: entry.color }}
             />
             {entry.name}:
           </span>
-          {/* <span className='font-semibold text-sm'> */}
           <span className={styles.tooltipValue}>
             ${entry.value.toLocaleString()}
           </span>
         </div>
       ))}
 
-      {/* <div className='border-t border-gray-200 mt-2 pt-2'> */}
       <div className={styles.tooltipDivision}>
-        {/* <div className='flex items-center justify-between gap-4'> */}
         <div className={styles.tooltipBalance}>
-          {/* <span className='text-sm font-medium text-gray-600'>Balance:</span> */}
           <span className={styles.tooltipBalanceText}>Balance:</span>
           <span className={`${diferencia >= 0 ? styles.green : styles.red}`}>
             ${Math.abs(diferencia).toLocaleString()}
